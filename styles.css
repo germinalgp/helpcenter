@@ -1,0 +1,121 @@
+/* ############################################### Fichero "styles.css" v1.0 ############################################################
+   #																																	#
+   #   Hoja de estilos en cascada usada en los ficheros .html de las aplicaciones de Websitel											#
+   #																																    #
+   ###################################################################################################################################### */
+
+@charset "utf-8";
+
+/* ##### INICIO DE ETIQUETAS (REDEFINICIONES DE ELEMENTOS HTML) */
+html {overflow-y:scroll; }
+body,p,a,span,div,input,select,textarea,legend,h1,h2,h3,h4,h5,h6,li,dd,dt,th,td { font-family:Arial, Helvetica, sans-serif;}
+body,p,a,span,div,input,select,textarea,legend,li,dd,dt,th,td {	font-size:10pt;	}
+body { background-color: rgb(216, 232, 251); background-image: url(images/fondo_.jpg); background-repeat: no-repeat;	}
+
+/* ##### INICIO DE ID's (SOLO SON APLICABLES A UN ELEMENTO HTML) */
+
+#searchform { width:400px; }
+#searchform fieldset { padding:10px;	}
+#searchform legend { font-weight:bold; font-size:9pt; }
+#searchform label{ display:block; height:2em; background-color:#B9D6ED; padding:10px 10px 0; }
+#searchform input  { width:150px; margin-right:5px; border:1px solid #999999; float:right; clear:right; background:#E8F3FF; }
+#searchform select { width:150px; margin-right:5px; border:1px solid #999999; float:right; clear:right; background:#E8F3FF; }
+#searchform textarea { width:350px; height: 100px; margin-right:5px; border:1px solid #999999; float:right; clear:right; background:#E8F3FF; }
+#searchform input:focus,#searchform textarea:hover,#searchform input:hover { border:1px solid #333333; }
+
+#searchformPeticion { width:550px; }
+#searchformPeticion fieldset { padding:10px;	}
+#searchformPeticion legend { font-weight:bold; font-size:9pt; }
+#searchformPeticion input,select { width:320px; margin-right:5px; border:1px solid #999999; float:right; clear:right; background:#E8F3FF; }
+#searchformPeticion textarea { width:450px; height: 100px; margin-right:5px; border:1px solid #999999; float:right; clear:right; background:#E8F3FF; }
+#searchformPeticion input:focus,#searchformPeticion textarea:hover,#searchformPeticion input:hover { border:1px solid #333333; }
+
+#formLarge { width:600px; }
+#formLarge fieldset { padding:10px;	}
+#formLarge legend { font-weight:bold; font-size:9pt; }
+#formLarge label{ display:block; height:4em; background-color:#B9D6ED; padding:10px 10px 0; }
+#formLarge input { width:100px; margin-right:5px; border:1px solid #999999; float:right; clear:right; background:#E8F3FF; }
+#formLarge select{ width:150px; margin-right:330px; border:1px solid #999999; float:right; clear:right; background:#E8F3FF; }
+#formLarge textarea { width:550px; height: 120px; margin-right:5px; border:1px solid #999999; float:left; clear:left; background:#E8F3FF; }
+#formLarge input:focus,#searchform textarea:hover,#searchform input:hover { border:1px solid #333333; }
+
+#formShort { width:200px; }
+#formShort fieldset { padding:10px;	}
+#formShort legend { font-weight:bold; font-size:9pt; }
+#formShort label{ display:block; height:2em; background-color:#B9D6ED; padding:10px 10px 0; }
+#formShort input  { width:100px; margin-right:5px; border:1px solid #999999; float:right; clear:right; background:#E8F3FF; }
+#formShort select { width:100px; margin-right:5px; border:1px solid #999999; float:right; clear:right; background:#E8F3FF; }
+#formShort textarea { width:350px; height: 100px; margin-right:5px; border:1px solid #999999; float:right; clear:right; background:#E8F3FF; }
+#formShort input:focus,#formShort textarea:hover,#formShort input:hover { border:1px solid #333333; }
+
+#formMasShort { width:330px; }
+#formMasShort fieldset { padding:10px;	}
+#formMasShort legend { font-weight:bold; font-size:9pt; }
+#formMasShort label{ display:block; height:2em; background-color:#B9D6ED; padding:10px 10px 0; }
+#formMasShort input  { width:100px; margin-right:1px; border:1px solid #999999; float:right; clear:right; background:#E8F3FF; }
+#formMasShort select { width:100px; margin-right:1px; border:1px solid #999999; float:right; clear:right; background:#E8F3FF; }
+#formMasShort input:focus,#formShort textarea:hover,#formShort input:hover { border:1px solid #333333; }
+
+#formSubmit { width:330px; }
+#formSubmit label{ display:block; height:2em; background-color:#D8E8FB; padding:10px 10px 0; }
+#formSubmit input  { width:100px; margin-right:1px; border:1px solid #999999; float:right; clear:right; background:#E8F3FF; }
+#formSubmit input:focus,#formSubmit input:hover { border:1px solid #333333; }
+
+#noticeform {width:400px; margin:left;}
+#noticeform fieldset {padding:10px;}
+#noticeform legend{font-weight:bold; font-size:9pt;}
+#noticeform .masNoticia1{ display:block; height:4em; background-color:#B9D6ED; padding:10px 10px 0; text-align:center }
+#noticeform .masNoticia2{ display:block; height:9em; background-color:#B9D6ED; padding:10px 10px 0; text-align:center }
+#noticeform .masNoticia3{ display:block; height:10em; background-color:#B9D6ED; padding:10px 10px 0; text-align:justify }
+#noticeform input:focus,#noticeform input:hover {border:1px solid #333333;}
+
+#registrarform {width:350px; margin:left;}
+#registrarform fieldset {padding:10px;}
+#registrarform legend{font-weight:bold; font-size:9pt;}
+#registrarform label{ display:block; height:2em; background-color:#B9D6ED; padding:10px 10px 0; }
+#registrarform input,select {width:150px; margin-right:20px;border:1px solid #999999;float:right;clear:right;background:#E8F3FF;}
+#registrarform input:focus,#registrarform input:hover {border:1px solid #333333;}
+
+
+#loginform {width:320px; margin:left;}
+#loginform fieldset {padding:10px;}
+#loginform legend{font-weight:bold; font-size:9pt;}
+#loginform label{ display:block; height:2em; background-color:#B9D6ED; padding:10px 10px 0; }
+#loginform input {margin-right:20px;border:1px solid #999999;float:right;clear:right;background:#E8F3FF;}
+#loginform input:focus,#loginform input:hover {border:1px solid #333333;}
+#label2 { display:block; height:2em; background-color:#B9D6ED; padding:8px 8px 0; }
+#label3 { display:block; height:10em; background-color:#B9D6ED; padding:8px 8px 0; }
+#label4 { display:block; height:2em; background-color:#FFFFFF; padding:8px 8px 0; }
+
+/* ##### INICIO DE CLASES (PUEDEN SER APLICABLES A CUALQUIER ELEMENTO HTML) */
+.calendario{ width:30px; margin-right:5px; border:1px solid #999999; float:right; clear:right; background:#E8F3FF; }
+.competencia{ width:150px; margin-left:5px; border:1px solid #999999; float:none; clear:none; background:#E8F3FF; }
+.estado{ width:150px; margin-left:5px; border:1px solid #999999; float:none; clear:none; background:#FFFFFF; }
+.estado_rojo{ width:150px; margin-left:5px; border:1px solid #FF000000; float:none; clear:none; background:#FF0000;}
+.estado_verde{ width:150px; margin-left:5px; border:1px solid #FF000000; float:none; clear:none; background:#00FF00;}
+.estado_amarillo{ width:150px; margin-left:5px; border:1px solid #FF000000; float:none; clear:none; background:#FFFF00;}
+.submit { width:100px; margin-right:1px; border:1px solid #999999; float:none; clear:none; background:#E8F3FF;}
+.morestats { width:100px; }
+.anio { width:100px; margin-right:850px;}
+.error{ color:red; font-weight:bold; }
+.borde { border: 2px solid #111111; border-collapse: collapse; background-color: #B9D6ED; }
+
+#searchformPeticion .blanco { background-color:#E8F3FF;}
+.filaMorada { background-color: #D8E8FB; border: 1px solid #666666;}
+.filaBlanca { background-color: #FFFFFF; border: 1px solid #666666;}
+.celda { border-style: solid; border-width: 1px; background-color:#E8F3FF; font-size:9pt;}
+.botones { width:100px; margin-right:1px; border:1px solid #999999; float:right; clear:right; background:#E8F3FF; }
+.centrar-imagen {text-align: center;} 
+/* STYLO TINY */
+.tbox {position:absolute; display:none; padding:14px 17px; z-index:900}
+.tinner {padding:15px; -moz-border-radius:5px; border-radius:5px; background:#B9D6ED url(images/preload.gif) no-repeat 50% 50%; border-right:1px solid #333; border-bottom:1px solid #333}
+.tmask {position:absolute; display:none; top:0px; left:0px; height:100%; width:100%; background:#000; z-index:800}
+.tclose {position:absolute; top:0px; right:0px; width:30px; height:30px; cursor:pointer; background:url(images/close.png) no-repeat}
+.tclose:hover {background-position:0 -30px}
+
+#error {background:#ff6969; color:#fff; text-shadow:1px 1px #cf5454; border-right:1px solid #000; border-bottom:1px solid #000; padding:0}
+#error .tcontent {padding:10px 14px 11px; border:1px solid #ffb8b8; -moz-border-radius:5px; border-radius:5px}
+#success {background:#2ea125; color:#fff; text-shadow:1px 1px #1b6116; border-right:1px solid #000; border-bottom:1px solid #000; padding:10; -moz-border-radius:0; border-radius:0}
+#bluemask {background:#4195aa}
+#frameless {padding:0}
+#frameless .tclose {left:6px}
