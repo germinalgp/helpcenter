@@ -1,5 +1,5 @@
 <?php
-	//PRUEBA
+	
 	require('conexion.php'); //Incluimos el conexion.php que contiene los datos de la conexion a la base de datos
 	
 	if (($_POST['nick'] == '') and ($_POST['pass'] == '')) //Comprobamos que las variables enviadas por el form de index.php tienen contenido
