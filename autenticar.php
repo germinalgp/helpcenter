@@ -1,5 +1,8 @@
 <?php
-	
+	/**
+	* PHP para lograr la autenticacion de usuarios sobre una Base de datos
+	* @author Germinal GARRIDO PUYANA
+	*/
 	require('conexion.php'); //Incluimos el conexion.php que contiene los datos de la conexion a la base de datos
 	
 	if (($_POST['nick'] == '') and ($_POST['pass'] == '')) //Comprobamos que las variables enviadas por el form de index.php tienen contenido

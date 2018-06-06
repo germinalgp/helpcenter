@@ -1,6 +1,9 @@
 <?php
-
-echo '<html>
+	/**
+	* PHP mostrar los mensajes de error o informacion que pueden darse en las diferentes opciones de la aplicacion
+	* @author Germinal GARRIDO PUYANA
+	*/
+	echo '<html>
 		<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 		<link href="styles.css" rel="stylesheet" type="text/css" />
