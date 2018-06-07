@@ -11,7 +11,8 @@
 		
 		$id = $_POST['ID'];
 		$competencia = $_POST['competencia'];
-		
+		echo $id;
+		echo $competencia;
 		switch ($competencia){
 			case "DESARROLLO" : $tipo = 5;
 									//$comentario = "CAMBIO COMPETENCIA: DESARROLLO";
@@ -26,8 +27,8 @@
 		
 		$fecha_peticion = getdate ();
 		$fecha_peticion = $fecha_peticion[year]."-".$fecha_peticion[mon]."-".$fecha_peticion[mday]." ".$fecha_peticion[hours].":".$fecha_peticion[minutes].":".$fecha_peticion[seconds];
-		mysql_query("UPDATE peticiones SET COMPETENCIA = '".$competencia."', LAST_USER_MODIFY = '".$_SESSION['usuario']."', LAST_DATE_MODIFY = '".$fecha_peticion."' WHERE ID = '".$id."'"); //Ponemos Estado al nuevo estado
-		mysql_query ("INSERT INTO historial (id_issue, author, tipo, date) values ('".$id."','".$_SESSION['usuario']."','".$tipo."','".$fecha_peticion."')");
+		mysqli_query($connection, "UPDATE peticiones SET COMPETENCIA = '".$competencia."', LAST_USER_MODIFY = '".$_SESSION['usuario']."', LAST_DATE_MODIFY = '".$fecha_peticion."' WHERE ID = '".$id."'"); //Ponemos Estado al nuevo estado
+		mysqli_query ($connection, "INSERT INTO historial (id_issue, author, tipo, date) values ('".$id."','".$_SESSION['usuario']."','".$tipo."','".$fecha_peticion."')");
 		Header("Location: index.php");
 
 	}else{ //GRABAMOS
@@ -35,7 +36,7 @@
 		$fecha = $ahora["year"]."-".$ahora["mon"]."-".$ahora["mday"]." ".$ahora["hours"].":".$ahora["minutes"].":".$ahora["seconds"]; //Obtiene el formato adecuado de fecha hora para insertar en la BBDD
 		$IP = $_SERVER['REMOTE_ADDR'];
 		$pagina = $_SERVER['PHP_SELF'];
-		mysql_query("INSERT INTO intrusos (IP,tipo,descripcion,fecha) values ('".$IP."',4,'".$pagina."','".$fecha."') ");
+		mysqli_query($connection, "INSERT INTO intrusos (IP,tipo,descripcion,fecha) values ('".$IP."',4,'".$pagina."','".$fecha."') ");
 		Header("Location: index.php?intrusion=1");
 	}
 	
