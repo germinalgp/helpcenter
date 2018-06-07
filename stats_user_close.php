@@ -5,7 +5,7 @@
 	*/
 	require('conexion.php'); //Incluimos el conexion.php que contiene los datos de la conexion a la base de datos
 	require_once('maxChart.class.php');
-
+	date_default_timezone_set('Europe/Madrid');
 	if ($_SESSION['level'] == 1 || $_SESSION['level'] == 2) {
 		echo '<html>
 			  <head>
