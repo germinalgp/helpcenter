@@ -362,7 +362,7 @@
 
 			
 
-			// Si se produce error tipo 1 (no hay errores), se procesan los datos introducidos
+			// Si se produce error tipo 21 (no hay errores), se procesan los datos introducidos
 			if ($error == 21)
 			{
 				// Insertamos en la BB.DD. la peticion de incidencia exitosa

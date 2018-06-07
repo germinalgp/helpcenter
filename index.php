@@ -174,7 +174,7 @@
 			
 			$numero = "";
 			if ( isset ( $_GET['numero'] ) ){
-				$mensaje = $_GET['numero'];
+				$numero = $_GET['numero'];
 			}	
 			
 			if ($mensaje != ''){
