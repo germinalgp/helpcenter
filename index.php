@@ -46,22 +46,22 @@
 			
 			<form id="noticeform" action="">
 				<fieldset>
-				<legend>¿Qué somos?</legend>
+				<legend>&iquest;Qu&eacute; somos?</legend>
 					<label class = "masNoticia1" for="masnoticia">
 						Nuestra empresa ofrece soluciones para aquellas empresas
-						que desean disponer de un sistema de gestión de incidencias
+						que desean disponer de un sistema de gesti&oacute;n de incidencias
 					</label>
 				</fieldset>
 			</form>
 			<br>
 			<form id="noticeform" action="">
 				<fieldset>
-				<legend>¿Como trabajamos?</legend>
+				<legend>&iquest;C&oacute;mo trabajamos?</legend>
 					<label class = "masNoticia2" for="masnoticia">
 						Disponemos de un equipo de analistas que buscaran el entorno mas adecuado
-						de gestión de incidencias que se adapte a sus necesidades.
-						Nuestros programadores, bajo la supervisión de un analista jefe, implementaran
-						la solución propuesta al cliente, teniendo en cuenta todos los criterios de calidad
+						de gesti&oacute;n de incidencias que se adapte a sus necesidades.
+						Nuestros programadores, bajo la supervisi&oacute;n de un analista jefe, implementaran
+						la soluci&oacute;n propuesta al cliente, teniendo en cuenta todos los criterios de calidad
 						establecidos, ofreciendo el PACK++ SECURITY para evitar intrusiones
 					</label>
 				</fieldset>
@@ -71,10 +71,10 @@
 				<fieldset>
 				<legend>Solicite SuTest 1.0</legend>
 					<label class = "masNoticia3" for="masnoticia">
-						Puede registrarse mediante el Botón Registro situado en la esquina superior izquierda, permitiéndole
-						acceder en modo cliente a un entorno de gestión de incidencias de ejemplo.<br>
-						Para acceder en modo ADMIN deberá solicitar acceso poniéndose en contacto mediante:<br><br>
-							&nbsp;&nbsp;&nbsp;<b>Llamada Teléfonica:</b> XXX XX XX XX<br>
+						Puede registrarse mediante el Bot&oacute;n Registro situado en la esquina superior izquierda, permiti&eacute;ndole
+						acceder en modo cliente a un entorno de gesti&oacute;n de incidencias de ejemplo.<br>
+						Para acceder en modo ADMIN deber&oacute; solicitar acceso poni&eacute;ndose en contacto mediante:<br><br>
+							&nbsp;&nbsp;&nbsp;<b>Llamada Telef&oacute;nica:</b> XXX XX XX XX<br>
 							&nbsp;&nbsp;&nbsp;<b>Email:</b> xxxxxx@xxx.com
 					</label>
 				</fieldset>
@@ -128,7 +128,7 @@
 	}
 	else
 	{
-		header('refresh:30');
+		header('refresh:60');
 		echo '<html>
 			  <head>
 					<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
