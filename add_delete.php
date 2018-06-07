@@ -21,7 +21,7 @@
 					<script type="text/javascript">
 						function Valida (formulario, opc, confirmar){
 							if (confirmar == 1){
-								if (confirm(\'Esta seguro de eliminar la categoria o producto?. Una vez borrado no se podrá volver atrás. \n(NOTA: en caso de Categoria, borrará todos los productos asociados)\')){
+								if (confirm(String.fromCharCode(191)+\'Esta seguro de eliminar la categor\xeda o producto?. Una vez borrado no se podr\xe1 volver atr\xe1s. \n(NOTA: en caso de Categor\xeda, borrar\xe1 todos los productos asociados)\')){
 									formulario.enviar_peticion.value=opc;
 									formulario.submit();
 								}
@@ -62,7 +62,7 @@
 
 					if ($combo_category_type != ""){
 					echo '<label id="label2" for="combo_category_type">
-							<select name="combo_category_type" tabindex="5" id="combo_category_type" onChange="searchformPeticion.submit();">';
+							<select name="combo_category_type" tabindex="5" id="combo_category_type" onchange="this.form.submit();return false;">';
 							$tabla_categorias = mysqli_query($connection, "SELECT id_combo, descripcion FROM tipos_combos WHERE tipo = 'CATEGORIA' ORDER BY descripcion ASC"); //Sentencia para buscarlo en la base de datos
 							while($row_tabla_categorias=mysqli_fetch_array($tabla_categorias))
 							{	
@@ -87,7 +87,7 @@
 						</fieldset></form>';
 					}else{
 					echo '<label id="label2" for="combo_category_type">
-							<select name="combo_category_type" tabindex="5" id="combo_category_type" onChange="searchformPeticion.submit();">';
+							<select name="combo_category_type" tabindex="5" id="combo_category_type" onchange="this.form.submit();return false;">';
 							$tabla_categorias = mysqli_query($connection, "SELECT id_combo, descripcion FROM tipos_combos WHERE tipo = 'CATEGORIA' ORDER BY descripcion ASC"); //Sentencia para buscarlo en la base de datos
 							echo '<option value = "-1" selected="selected">Elija una opci&#243;n:</option>';
 							while($row_tabla_categorias=mysqli_fetch_array($tabla_categorias))
@@ -116,7 +116,7 @@
 					///////////////////////INICIO SEGUNDO FORMULARIO ---- ADD CATEGORIA
 				echo '<form id="searchformPeticion" name= "add_category" method="post" action="add_delete.php">
 						<fieldset>
-						<legend>Añadir categoría</legend>
+						<legend>A&ntilde;adir categor&iacute;a</legend>
 						<input type="hidden" name="enviar_peticion" value="0" size="1"></input>
 						<label id="label2" for="combo_issue_type">
 							<select name="combo_issue_type" tabindex="5" id="combo_issue_type">';
@@ -129,7 +129,7 @@
 							echo '</select>Tipo: <b class="error">(*)</b>
 						</label>
 						<label id="label2" for="new_category">
-							<input class = "blanco" type="text" name="new_category" tabindex="3" id="new_category"></input>Nueva categoría: <b class="error">(*)</b>
+							<input class = "blanco" type="text" name="new_category" tabindex="3" id="new_category"></input>Nueva categor&iacute;a: <b class="error">(*)</b>
 						 </label>
 								
 						
@@ -146,7 +146,7 @@
 					///////////////////////INICIO TERCER FORMULARIO ---- ADD PRODUCTO
 				echo '<form id="searchformPeticion" name= "add_product" method="post" action="add_delete.php">
 						<fieldset>
-						<legend>Añadir producto</legend>
+						<legend>A&ntilde;adir producto</legend>
 						<input type="hidden" name="enviar_peticion" value="0" size="1"></input>
 						<label id="label2" for="combo_category2_type">
 							<select name="combo_category2_type" tabindex="5" id="combo_category2_type">';
