@@ -16,6 +16,7 @@
 	*/
 	function menu_int($btn_home, $btn_gestionar, $btn_registro, $btn_pass, $btn_stats, $btn_intrusos){
 		require('conexion.php');
+		date_default_timezone_set('Europe/Madrid');
 		if ($btn_home){
 			$img_home = '<div class="centrar-imagen"><img title="OPCI&#211;N ACTUAL" border="0" src="images/home_on.jpg" alt="NO IMAGEN"></img></div>'; 
 		}else{
@@ -157,6 +158,7 @@
 	* @param int $btn_pass Si es 1 activa el boton si es 0 no lo activa
 	*/
 	function menu_ext($btn_home, $btn_crear, $btn_pass){
+		date_default_timezone_set('Europe/Madrid');
 		require('conexion.php');
 		if ($btn_home){
 			$img_home = '<div class="centrar-imagen"><img title="OPCI&#211;N ACTUAL" border="0" src="images/home_on.jpg" alt="NO IMAGEN"></img></div>'; 

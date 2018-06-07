@@ -7,7 +7,7 @@
 	*/
 	require('conexion.php'); //Incluimos el conexion.php que contiene los datos de la conexion a la base de datos
 	include('menu.php');
-
+	date_default_timezone_set('Europe/Madrid');
 
 	require_once('maxChart.class.php');
 
