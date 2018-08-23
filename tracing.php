@@ -28,7 +28,7 @@
 		$fecha_peticion = getdate ();
 		$fecha_peticion = $fecha_peticion['year']."-".$fecha_peticion['mon']."-".$fecha_peticion['mday']." ".$fecha_peticion['hours'].":".$fecha_peticion['minutes'].":".$fecha_peticion['seconds'];
 		mysqli_query($connection, "UPDATE peticiones SET TRACING = '".$tracing."', LAST_USER_MODIFY = '".$_SESSION['usuario']."', LAST_DATE_MODIFY = '".$fecha_peticion."' WHERE ID = '".$id."'"); //Ponemos Estado al nuevo estado
-		//mysql_query ("INSERT INTO comentarios (id_issue, author, comments, tipo_comentario, date) values ('$id','$_SESSION[usuarioInc]','$comentario','$tipo_comentario','$fecha_peticion')");
+		//mysql_query ("INSERT INTO comentarios (id_issue, author, comments, tipo_comentario, date) values ('$id','$_SESSION[usuario]','$comentario','$tipo_comentario','$fecha_peticion')");
 		mysqli_query ($connection, "INSERT INTO historial (id_issue, author, tipo, date) values ('".$id."','".$_SESSION['usuario']."','".$tipo."','".$fecha_peticion."')");
 		Header("Location: index.php");
 

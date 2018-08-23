@@ -77,12 +77,13 @@
 	 * albanx@gmail.com
 	 * www.albanx.com
 	 */
+	$id = $_GET['ID'];
 	error_reporting(E_ALL ^ E_NOTICE);//remove notice for json invalidation
-	$sql = "SELECT date_format(DATE, '%Y-%m-%d %H:%i:%s' ) as DATE  FROM peticiones WHERE ID = ".$_GET['ID'];
+	$sql = "SELECT date_format(DATE, '%Y-%m-%d %H:%i:%s' ) as DATE  FROM peticiones WHERE ID = ".$id;
 	$resultado=mysqli_fetch_array(mysqli_query($connection, $sql));
 	$fecha_peticion = date_parse($resultado[0]);
 
-	$uploadPath	= "smb/incidencias/".$fecha_peticion["year"]."/".str_pad($fecha_peticion["month"], 2, "0", STR_PAD_LEFT)."/".str_pad($fecha_peticion["day"], 2, "0", STR_PAD_LEFT)."/".$_GET['ID']."/";
+	$uploadPath	= "smb/incidencias/".$fecha_peticion["year"]."/".str_pad($fecha_peticion["month"], 2, "0", STR_PAD_LEFT)."/".str_pad($fecha_peticion["day"], 2, "0", STR_PAD_LEFT)."/".$id."/";
 	$fileName	= sanear_string(urldecode($_REQUEST['ax-file-name']));
 	$currByte	= $_REQUEST['ax-start-byte'];
 	$maxFileSize= $_REQUEST['ax-maxFileSize'];
@@ -266,7 +267,7 @@
 				if($fullPath)
 				{
 					move_uploaded_file($_FILES['ax-files']['tmp_name'][$key], $fullPath);
-					mysql_query ("INSERT INTO historial_ficheros (id_issue, author, date, filename) values ('".$_GET["ID"]."','".$_SESSION["usuarioInc"]."',now(),'$fileName')");
+					mysqli_query ($connection,  "INSERT INTO historial_ficheros (ID_ISSUE, AUTHOR, DATE, FILENAME) values ('".$id."','".$_SESSION["usuario"]."',now(),'$fileName')");
 					if(!empty($thumbWidth) || !empty($thumbHeight))
 						createThumbGD($fullPath, $thumbPath, $thumbPostfix, $thumbWidth, $thumbHeight, $thumbFormat);
 						
@@ -317,7 +318,7 @@
 
 			if($isLast=='true')
 			{
-				mysql_query ("INSERT INTO historial_ficheros (id_issue, author, date, filename) values ('".$_GET["ID"]."','".$_SESSION["usuarioInc"]."',now(),'$fileName')");
+				mysqli_query ($connection, "INSERT INTO historial_ficheros (ID_ISSUE, AUTHOR, DATE, FILENAME) values ('".$id."','".$_SESSION["usuario"]."',now(),'$fileName')");
 				createThumbGD($fullPath, $thumbPath, $thumbPostfix, $thumbWidth, $thumbHeight, $thumbFormat);
 			}
 			echo json_encode(array('name'=>basename($fullPath), 'size'=>$currByte, 'status'=>'uploaded', 'info'=>'Fichero/pieza subido'));
@@ -330,7 +331,7 @@
 		$fecha = $ahora["year"]."-".$ahora["mon"]."-".$ahora["mday"]." ".$ahora["hours"].":".$ahora["minutes"].":".$ahora["seconds"]; //Obtiene el formato adecuado de fecha hora para insertar en la BBDD
 		$IP = $_SERVER['REMOTE_ADDR'];
 		$pagina = $_SERVER['PHP_SELF'];
-		mysql_query("INSERT INTO intrusos (IP,tipo,descripcion,fecha) values ('".$IP."',4,'".$pagina."','".$fecha."') ");
+		mysqli_query ($connection, "INSERT INTO intrusos (IP,tipo,descripcion,fecha) values ('".$IP."',4,'".$pagina."','".$fecha."') ");
 		Header("Location: index.php?intrusion=1");
 	}
 ?>
