@@ -92,15 +92,15 @@
 				if ($_SESSION['level'] == 1){
 					if ($btn_intrusos){
 						if ($res_intrusiones[0]==0){
-							echo'<td width="48"><a href="intrusos.php" title="NO HAY INTRUSIONES"><div class="centrar-imagen"><img width="48" border="0" src="images/intrusos_no_on.jpg" alt="NO IMAGEN"></img></div></a></td>';
+							echo'<td width="48"><a href="intrusos.php" title="NO HAY INTRUSIONES"><div class="centrar-imagen"><img width="48" border="0" src="images/intrusos_no_on.gif" alt="NO IMAGEN"></img></div></a></td>';
 						}else if ($res_intrusiones[0]==1){
-							echo'<td width="48"><a href="intrusos.php" title="'.$res_intrusiones[0].' INTRUSION"><div class="centrar-imagen"><img width="48" border="0" src="images/intrusos_si_on.jpg" alt="NO IMAGEN"></img></div></a></td>';
+							echo'<td width="48"><a href="intrusos.php" title="'.$res_intrusiones[0].' INTRUSION"><div class="centrar-imagen"><img width="48" border="0" src="images/intrusos_si_on.gif" alt="NO IMAGEN"></img></div></a></td>';
 						}else{
-							echo'<td width="48"><a href="intrusos.php" title="'.$res_intrusiones[0].' INTRUSIONES"><div class="centrar-imagen"><img width="48" border="0" src="images/intrusos_si_on.jpg" alt="NO IMAGEN"></img></div></a></td>';
+							echo'<td width="48"><a href="intrusos.php" title="'.$res_intrusiones[0].' INTRUSIONES"><div class="centrar-imagen"><img width="48" border="0" src="images/intrusos_si_on.gif" alt="NO IMAGEN"></img></div></a></td>';
 						}
 					}else{
 						if ($res_intrusiones[0]==0){
-							echo'<td width="48"><a href="intrusos.php" title="NO HAY INTRUSIONES"><div class="centrar-imagen"><img width="48" border="0" src="images/intrusos_no.jpg" alt="NO IMAGEN"></img></div></a></td>';
+							echo'<td width="48"><a href="intrusos.php" title="NO HAY INTRUSIONES"><div class="centrar-imagen"><img width="48" border="0" src="images/intrusos_no.gif" alt="NO IMAGEN"></img></div></a></td>';
 						}else if ($res_intrusiones[0]==1){
 							echo'<td width="48"><a href="intrusos.php" title="'.$res_intrusiones[0].' INTRUSION"><div class="centrar-imagen"><img width="48" border="0" src="images/intrusos_si.gif" alt="NO IMAGEN"></img></div></a></td>';
 						}else{
