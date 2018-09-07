@@ -16,7 +16,7 @@
 	else
 	{ 
 		//Comprobamos en la Base de datos si existe ese nick con esa pass
-		$usuarios = mysqli_query($connection, "SELECT * FROM users WHERE nick = '".$_POST['nick']."' and pass = '".$_POST['pass']."'");
+		$usuarios = mysqli_query($connection, "SELECT * FROM users WHERE nick = '".$_POST['nick']."' and pass = '".$_POST['pass']."' and active = 1");
 		$user_ok = mysqli_fetch_array($usuarios); //Obtenemos el usuario en user_ok
 		if ($user_ok && $user_ok["intentos"] < 3){
 			mysqli_query($connection, "UPDATE users SET intentos = 0 WHERE nick = '".$_POST['nick']."'"); //Actualizamos el numero de intentos

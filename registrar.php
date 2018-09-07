@@ -106,7 +106,7 @@
 				$ahora = getdate(); //Obtiene un array con los datos de la fecha y hora actual
 				$fecha = $ahora["year"]."-".$ahora["mon"]."-".$ahora["mday"]." ".$ahora["hours"].":".$ahora["minutes"].":".$ahora["seconds"]; //Obtiene el formato adecuado de fecha hora para insertar en la BBDD
 				//Introducimos el nuevo registro en la tabla users
-				mysqli_query($connection, "INSERT INTO users (nick,pass,nombre,fecha,level,departamento, registrador, reseteador) values ('".$user."','".$pass."','".$nombre."','".$fecha."','9','','nick','nick') ");
+				mysqli_query($connection, "INSERT INTO users (nick,pass,nombre,email, telephone, fecha,level,departamento, registrador, reseteador) values ('".$user."','".$pass."','".$nombre."','".$email."','".$telephone."','".$fecha."','9','','nick','nick') ");
 				Header("Location:index.php?mensaje=".$error.""); 
 			}
 

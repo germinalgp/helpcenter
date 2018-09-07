@@ -122,12 +122,17 @@
 				$ahora = getdate(); //Obtiene un array con los datos de la fecha y hora actual
 				$fecha = $ahora["year"]."-".$ahora["mon"]."-".$ahora["mday"]." ".$ahora["hours"].":".$ahora["minutes"].":".$ahora["seconds"]; //Obtiene el formato adecuado de fecha hora para insertar en la BBDD
 				//Introducimos el nuevo registro en la tabla users
-				mysqli_query ($connection, "INSERT INTO users (nick,pass,nombre,fecha,level,departamento, registrador, reseteador) values ('".$user."','".$pass."','".$nombre."','".$fecha."','".$level."','".$departamento."','".$_SESSION['usuario']."','') ");
+				mysqli_query ($connection, "INSERT INTO users (nick,pass,nombre,fecha,level,departamento, registrador, reseteador, active) values ('".$user."','".$pass."','".$nombre."','".$fecha."','".$level."','".$departamento."','".$_SESSION['usuario']."','', '1') ");
 				Header("Location:registro.php?mensaje=".$error.""); //Enviamos al form de registro que está en reg.php con el codigo 3
 			}
 
 		}
 
+	}else if ( isset ( $_POST['enviar_peticion']) && $_POST['enviar_peticion'] == 2){
+			$userid = $_POST['ID'];
+			mysqli_query ($connection, "UPDATE users SET active = '1' WHERE nick LIKE '".$userid."'");
+			Header("Location:registro.php"); //Enviamos al form de registro que está en reg.php con el codigo 3
+	
 	}else{
 			if ($_SESSION['block'] > 0){
 				mysqli_query ($connection, "UPDATE peticiones SET BLOCK = 0 WHERE ID = ".$_SESSION['block'].""); //DESBLOQUEAMOS
@@ -162,6 +167,10 @@
 				</blockquote></blockquote>
 			
 				<blockquote><blockquote>
+				
+			<table>
+			<tr>
+			<td>
 			<form id="registrarform" method="post" action="registro.php">
 					<fieldset>
 						<legend>Registro</legend>
@@ -218,6 +227,56 @@
 						</ul>		
 					</fieldset>
 					</form>
+					</td>
+					<td valign="top">';
+					$colorFila="filaBlanca";
+					$sql="SELECT nick, nombre, email, telephone, fecha FROM users WHERE active = 0 ORDER BY fecha ASC";
+					$resultado=mysqli_query($connection, $sql);
+					
+					//MOSTRAR USUARIOS
+					echo '<table class="borde" cellpading="1" cellspacing="0">
+					<tr>
+						<td align="center" colspan="6"><font face="Arial Black" size="2">Peticiones de registro</font></td>
+					</tr>
+					<tr>
+						<td align="center" width="80"><b><font face="Arial">Usuario</font></b></td>
+						<td align="center" width="100"><b><font face="Arial">Nombre/Apellidos</font></b></td>
+						<td align="center" width="100"><b><font face="Arial">Email</font></b></td>
+						<td align="center" width="100"><b><font face="Arial">Tel&#233;fono</font></b></td>
+						<td align="center" width="100"><b><font face="Arial">Fecha</font></b></td>										
+						<td align="center"><b></b></td>
+					</tr>';
+					
+					while ($datos=mysqli_fetch_array($resultado))
+						{	
+							echo '
+							<form id="searchform" method="post" action="registro.php">
+							<tr class="'.$colorFila.'">
+								<td align="center">'.$datos["nick"].'</td>
+								<td align="center">'.$datos["nombre"].'</td>
+								<td align="center">'.$datos["email"].'</td>		
+								<td align="center">'.$datos["telephone"].'</td>
+								<td align="center">'.$datos["fecha"].'</td>
+															
+								<td align="center" valign="middle">
+									<input type="hidden" name="enviar_peticion" value="2" size="1"></input>								
+									<input type="hidden" name="ID" value="'.$datos["nick"].'"></input>
+									<input name="Submit" type="submit" id="submit" value="ACEPTAR..."></input>											
+								</td></tr></form>';							  
+							//Cambio el color de la fila	
+							if ($colorFila == "filaBlanca") 
+							{
+								$colorFila = "filaMorada";
+							}
+							else
+							{
+								$colorFila = "filaBlanca";
+							}
+						}	
+					echo '</table>
+					</td>
+					</tr>
+					</table>
 					</blockquote></blockquote>
 			</body>
 			</html>';
