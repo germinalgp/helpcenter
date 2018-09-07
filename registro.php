@@ -133,6 +133,14 @@
 			mysqli_query ($connection, "UPDATE users SET active = '1' WHERE nick LIKE '".$userid."'");
 			Header("Location:registro.php"); //Enviamos al form de registro que está en reg.php con el codigo 3
 	
+	}else if ( isset ( $_POST['enviar_peticion']) && $_POST['enviar_peticion'] == 3){
+			$userid = $_POST['ESTADO'];
+			$ahora = getdate(); //Obtiene un array con los datos de la fecha y hora actual
+			$fecha = $ahora["year"]."-".$ahora["mon"]."-".$ahora["mday"]." ".$ahora["hours"].":".$ahora["minutes"].":".$ahora["seconds"]; //Obtiene el formato adecuado de fecha hora para insertar en la BBDD
+			mysqli_query ($connection, "INSERT INTO delete_users SELECT nick, nombre, email, telephone, '".$fecha."', level, departamento, cod_departamento, registrador, '".$_SESSION['usuario']."' FROM users WHERE nick LIKE '".$userid."'");
+			mysqli_query ($connection, "DELETE FROM users WHERE nick LIKE '".$userid."'");
+			Header("Location:registro.php"); //Enviamos al form de registro que está en reg.php con el codigo 3
+	
 	}else{
 			if ($_SESSION['block'] > 0){
 				mysqli_query ($connection, "UPDATE peticiones SET BLOCK = 0 WHERE ID = ".$_SESSION['block'].""); //DESBLOQUEAMOS
@@ -230,13 +238,13 @@
 					</td>
 					<td valign="top">';
 					$colorFila="filaBlanca";
-					$sql="SELECT nick, nombre, email, telephone, fecha FROM users WHERE active = 0 ORDER BY fecha ASC";
-					$resultado=mysqli_query($connection, $sql);
+					$sql_registro="SELECT nick, nombre, email, telephone, fecha FROM users WHERE active = 0 ORDER BY fecha ASC";
+					$resultado_registro=mysqli_query($connection, $sql_registro);
 					
 					//MOSTRAR USUARIOS
 					echo '<table class="borde" cellpading="1" cellspacing="0">
 					<tr>
-						<td align="center" colspan="6"><font face="Arial Black" size="2">Peticiones de registro</font></td>
+						<td align="center" colspan="6"><font face="Arial Black" size="5">Peticiones de registro</font></td>
 					</tr>
 					<tr>
 						<td align="center" width="80"><b><font face="Arial">Usuario</font></b></td>
@@ -247,22 +255,24 @@
 						<td align="center"><b></b></td>
 					</tr>';
 					
-					while ($datos=mysqli_fetch_array($resultado))
+					while ($datos_registro=mysqli_fetch_array($resultado_registro))
 						{	
 							echo '
 							<form id="searchform" method="post" action="registro.php">
 							<tr class="'.$colorFila.'">
-								<td align="center">'.$datos["nick"].'</td>
-								<td align="center">'.$datos["nombre"].'</td>
-								<td align="center">'.$datos["email"].'</td>		
-								<td align="center">'.$datos["telephone"].'</td>
-								<td align="center">'.$datos["fecha"].'</td>
+								<td align="center">'.$datos_registro["nick"].'</td>
+								<td align="center">'.$datos_registro["nombre"].'</td>
+								<td align="center">'.$datos_registro["email"].'</td>		
+								<td align="center">'.$datos_registro["telephone"].'</td>
+								<td align="center">'.$datos_registro["fecha"].'</td>
 															
 								<td align="center" valign="middle">
 									<input type="hidden" name="enviar_peticion" value="2" size="1"></input>								
-									<input type="hidden" name="ID" value="'.$datos["nick"].'"></input>
-									<input name="Submit" type="submit" id="submit" value="ACEPTAR..."></input>											
-								</td></tr></form>';							  
+									<input type="hidden" name="ID" value="'.$datos_registro["nick"].'"></input>
+									<input name="Submit" type="submit" id="submit" value="ACEPTAR"></input>											
+								</td>
+							</tr>
+							</form>';							  
 							//Cambio el color de la fila	
 							if ($colorFila == "filaBlanca") 
 							{
@@ -273,7 +283,30 @@
 								$colorFila = "filaBlanca";
 							}
 						}	
-					echo '</table>
+					echo '</table>';
+					
+					$colorFila="filaBlanca";
+					$sql_delete="SELECT nick, nombre, email, telephone, fecha FROM users WHERE nick NOT LIKE '".$_SESSION['usuario']."' ORDER BY fecha ASC";
+					$resultado_delete=mysqli_query($connection, $sql_delete);
+					
+					//MOSTRAR USUARIOS
+			echo '<br>
+					<table class="borde" cellpading="1" cellspacing="0">
+					<tr>
+						<td align="center" colspan="6"><font face="Arial Black" size="5">Eliminar usuario</font></td>
+					</tr>
+					<tr class="'.$colorFila.'">
+						<td align="center" colspan="5">
+						<form id="searchform" method="post" action="registro.php">
+							<select style="width:98%;" name="ESTADO" id="estado">';		
+							while ($datos_delete=mysqli_fetch_array($resultado_delete)){
+								echo '<option value="'.$datos_delete["nick"].'">'.$datos_delete["nick"].';'.$datos_delete["nombre"].'</option>';
+							}			
+				echo '</select>
+					</td>
+					<td>
+						<input type="hidden" name="enviar_peticion" value="3" size="1"></input>								
+						<input name="Submit" type="submit" id="submit" value="ELIMINAR"></input>		
 					</td>
 					</tr>
 					</table>
