@@ -11,8 +11,7 @@
 		
 		$id = $_POST['ID'];
 		$competencia = $_POST['competencia'];
-		echo $id;
-		echo $competencia;
+		
 		switch ($competencia){
 			case "DESARROLLO" : $tipo = 5;
 									//$comentario = "CAMBIO COMPETENCIA: DESARROLLO";
