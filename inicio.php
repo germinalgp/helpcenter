@@ -5,7 +5,7 @@ echo '<html>
 		<link href="styles.css" rel="stylesheet" type="text/css" />
 		</head>
 	    <body bgcolor = "#B9D6ED">
-		<form id="loginform" method="post" action="autenticar.php">
+		<form id="loginform" method="post" action="controller/c_autenticar.php">
 			<fieldset>
 			<legend>Inicio de sesion</legend>
 				<p>Por favor, introduzca nombre de usuario y contrase&#241;a parar entrar en Helpcenter</p>
