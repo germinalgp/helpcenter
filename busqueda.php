@@ -9,7 +9,8 @@
 	include ('menu.php');
 
 	if ($_SESSION['level'] == 1 || $_SESSION['level'] == 2 || $_SESSION['level'] == 3 || $_SESSION['level'] == 4 || $_SESSION['level'] == 9) {
-	echo '<html>
+	if ( !isset ( $_POST['enviar_peticion']) || $_POST['enviar_peticion'] != 1){
+		echo '<html>
 			<head>
 					<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 					<title>INCIDENCIAS</title>
@@ -25,8 +26,6 @@
 					<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>';
 		
 		$colorFila="filaBlanca";
-
-	if ( !isset ( $_POST['enviar_peticion']) || $_POST['enviar_peticion'] != 1){
 		
 		if ($_SESSION['level'] == 9){
 			menu_ext(0, 0, 0);
@@ -35,7 +34,7 @@
 		}
 		
 		echo '<blockquote><blockquote><blockquote><blockquote><blockquote>
-				<form id="searchformPeticion" method="post" action="busqueda.php">
+				<form id="searchformPeticion" method="post" action="controller/c_busqueda.php">
 				<fieldset>
 				<legend>Busqueda de incidencias</legend>
 					<p>Por favor, seleccione campos</p>
@@ -110,6 +109,22 @@
 
 		echo '</body></html>';
 	}else{ //SI SE MANDA UN COMENTARIO DESDE LA MISMA PAGINA busqueda.php
+	echo '<html>
+			<head>
+					<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+					<title>INCIDENCIAS</title>
+					<link href="../styles.css" rel="stylesheet" type="text/css" />
+					<script type="text/javascript" src="../src/js/jscal2.js"></script>
+					<script type="text/javascript" src="../src/js/lang/en.js"></script>
+					<link rel="stylesheet" type="text/css" href="../src/css/jscal2.css" />
+					<link rel="stylesheet" type="text/css" href="../src/css/border-radius.css" />
+					<link rel="stylesheet" type="text/css" href="../src/css/steel/steel.css" />
+			 </head>
+			  
+			  <body style="font: 13px/20px sans-serif;" link="#0000ff" vlink="#0000ff">
+					<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>';
+		
+		$colorFila="filaBlanca";
 		if ($_SESSION['level'] == 9){
 			menu_ext(0, 0, 0);
 			
@@ -117,45 +132,12 @@
 			menu_int(0, 0, 0, 0, 0, 0);
 		}
 		
-		$user_open = "";
-		$user_close = "";
-		$n_serie = "";
-		$fechainicial = "";
-		$fechafinal = "";
+
 		
-		//MODIFICAMOS LAS VARIABLES $_POST PARA CREAR NUESTRA CONSULTA
-		if ($_POST['user_open']!=""){
-			$user_open = " AND USER_OPEN LIKE '".$_POST['user_open']."'";
-		}
-		if ($_POST['n_serie']!=""){
-			$n_serie = " AND N_SERIE LIKE '".$_POST['n_serie']."'";
-		}
-		if ($_POST['fechainicial']!=""){
-			$fechainicial = " AND DATE >= '".$_POST['fechainicial']." 00:00:00'";
-		}
-		if ($_POST['fechafinal']!=""){
-			$fechafinal = " AND DATE <= '".$_POST['fechafinal']." 23:59:59'";
-		}
-		
-		if ($_SESSION['level'] == 9){
-			//SI NO ES ADMINISTRADOR SOLO PUEDE VER LAS INCIDENCIAS SUYAS
-			$sql_busqueda="SELECT DISTINCT p.ID,p.USER_OPEN, c.DESCRIPCION, p.COMPETENCIA, p.STATE, p.BLOCK, p.DATE FROM peticiones p, tipos_combos c WHERE p.USER_OPEN = ".$_SESSION['usuario']." AND p.ISSUE_TYPE = c.ID_COMBO".$user_open.$n_serie.$fechainicial.$fechafinal." ORDER BY p.DATE";	
-		}else if ($_SESSION['level'] == 4 || $_SESSION['level'] == 3 || $_SESSION['level'] == 2 || $_SESSION['level'] == 1){ 
-			//SI ES USUARIO ADMINISTRADOR PUEDE VER TODAS LAS INCIDENCIAS DE TODOS LOS USUARIOS
-			if ($_POST['user_close']!=""){
-				$sql_busqueda="(SELECT DISTINCT p.ID,p.USER_OPEN, d.DESCRIPCION, p.COMPETENCIA, p.STATE, p.BLOCK, p.DATE FROM peticiones p, tipos_combos d, comentarios c WHERE p.ISSUE_TYPE = d.ID_COMBO AND p.ID = c.ID_ISSUE".$user_open.$n_serie.$fechainicial.$fechafinal." AND c.AUTHOR LIKE '".$_POST['user_close']."' ORDER BY p.DATE)
-				UNION (SELECT DISTINCT p.ID,p.USER_OPEN, d.DESCRIPCION, p.COMPETENCIA, p.STATE, p.BLOCK, p.DATE FROM peticiones p, tipos_combos d, historial h WHERE p.ISSUE_TYPE = d.ID_COMBO AND p.ID = h.ID_ISSUE".$user_open.$n_serie.$fechainicial.$fechafinal." AND h.AUTHOR LIKE '".$_POST['user_close']."' ORDER BY p.DATE)
-				";
-			}else{
-				$sql_busqueda="SELECT DISTINCT p.ID,p.USER_OPEN, d.DESCRIPCION, p.COMPETENCIA, p.STATE, p.BLOCK, p.DATE FROM peticiones p, tipos_combos d WHERE p.ISSUE_TYPE = d.ID_COMBO".$user_open.$n_serie.$fechainicial.$fechafinal." ORDER BY p.DATE";
-			}
-		}
-		
-		$res_busqueda=mysqli_query($connection, $sql_busqueda);
-		$numrows=@mysqli_num_rows($res_busqueda);
-		if ($numrows == 0){ //SI NO TENEMOS RESULTADOS
+		if (empty($datos)){ //SI NO TENEMOS RESULTADOS
 			echo 'NO HAY RESULTADOS';
 		}else{
+			
 			echo '<table class="borde" cellpading="1" cellspacing="0" width="1000">
 					<tr>
 						<td align="center" colspan="7"><font face="Arial Black" size="4">INCIDENCIAS ENCONTRADAS</font></td>
@@ -170,37 +152,38 @@
 						<td align="center"><b><font face="Arial">FECHA</font></b></td>										
 						<td align="center"><b></b></td>
 					</tr>';
-					while ($datos=mysqli_fetch_array($res_busqueda))
+					
+					foreach ($datos as $dato)
 						{	
 							echo '
-							<form id="searchform" method="post" action="respuesta.php">
+							<form id="searchform" method="post" action="../respuesta.php">
 							<tr class="'.$colorFila.'">
-								<td align="center">'.$datos["ID"].'</td>';
+								<td align="center">'.$dato["ID"].'</td>';
 								if ($_SESSION['level'] == 4 || $_SESSION['level'] == 3 || $_SESSION['level'] == 2 || $_SESSION['level'] == 1){
-									echo '<td align="center">'.$datos["USER_OPEN"].'</td>';
+									echo '<td align="center">'.$dato["USER_OPEN"].'</td>';
 								}
-								echo '<td align="center">'.$datos["DESCRIPCION"].'</td>
-								<td align="center">'.$datos["COMPETENCIA"].'</td>		
-								<td align="center">'.$datos["DATE"].'</td>
+								echo '<td align="center">'.$dato["DESCRIPCION"].'</td>
+								<td align="center">'.$dato["COMPETENCIA"].'</td>		
+								<td align="center">'.$dato["DATE"].'</td>
 								<td align="center">';
 									switch ($datos["STATE"]){
-										case 0:	echo '<img title="INCIDENCIA ABIERTA" height="25" src="images/abierta_ico.gif" alt="NO IMAGEN"></img>';
+										case 0:	echo '<img title="INCIDENCIA ABIERTA" height="25" src="../images/abierta_ico.gif" alt="NO IMAGEN"></img>';
 												break;
-										case 1: echo '<img title="INCIDENCIA EN TRAMITE" height="25" src="images/tramite_ico.gif" alt="NO IMAGEN"></img>';
+										case 1: echo '<img title="INCIDENCIA EN TRAMITE" height="25" src="../images/tramite_ico.gif" alt="NO IMAGEN"></img>';
 												break;
-										case 2: echo '<img title="INCIDENCIA CERRADA" height="25" src="images/cerrada_ico.gif" alt="NO IMAGEN"></img>';
+										case 2: echo '<img title="INCIDENCIA CERRADA" height="25" src="../images/cerrada_ico.gif" alt="NO IMAGEN"></img>';
 												break;	
 									}
 								echo '</td>							
 								<td align="center" valign="center">									
-									<input type="hidden" name="ID" value="'.$datos["ID"].'"></input>'; //PARA ENVIAR AL ID
+									<input type="hidden" name="ID" value="'.$dato["ID"].'"></input>'; //PARA ENVIAR AL ID
 																				
-									if ($datos["BLOCK"] == 0){				
+									if ($dato["BLOCK"] == 0){				
 										echo '<input name="Submit" type="submit" id="submit" tabindex="13" value="ABRIR..."></input>';
 									}
 									else {
 										echo '<input name="Submit" type="submit" id="submit" tabindex="13" value="Bloqueado" disabled = "disabled"></input>
-											<a href=unlock.php?ID='.$datos["ID"].'><img border="0" src="images/candado.gif" width="20" height="20" alt="NO IMAGEN"></img></a>';
+											<a href=../unlock.php?ID='.$dato["ID"].'><img border="0" src="../images/candado.gif" width="20" height="20" alt="NO IMAGEN"></img></a>';
 									}
 										
 							echo '</td></tr></form>';							  

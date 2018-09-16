@@ -5,6 +5,7 @@
 	* visualizar en funcion de pertenencias asi como las opciones del menu a las que podamos acceder por level.
 	* @author Germinal GARRIDO PUYANA
 	*/
+	
 	require('conexion.php'); //Incluimos el conexion.php que contiene los datos de la conexion a la base de datos
 	include('menu.php');
 
