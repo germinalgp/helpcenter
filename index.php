@@ -134,7 +134,8 @@
 			  <head>
 					<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 					<title>HELPCENTER</title>
-					<link href="styles.css" rel="stylesheet" type="text/css" /> 
+					<link href="styles.css" rel="stylesheet" type="text/css" />
+					<link href="../styles.css" rel="stylesheet" type="text/css" /> 					
 					<script type="text/javascript" src="tinybox.js"></script>
 					<script type="text/javascript" language="JavaScript">
 						function js_ordenar(num_orden){

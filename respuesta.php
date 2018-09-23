@@ -6,6 +6,8 @@
 	*/
 	require('conexion.php'); //Incluimos el conexion.php que contiene los datos de la conexion a la base de datos
 	include ('menu.php');
+	
+	
 
 	/**
 	* Funcion para obtener una lista de ficheros de una determinada ruta
@@ -57,6 +59,7 @@
 						}
 					</script>
 					<link href="styles.css" rel="stylesheet" type="text/css" />
+					<link href="../styles.css" rel="stylesheet" type="text/css" /> 	
 					<link rel="stylesheet" href="style/ax-multiuploader/style.css" type="text/css" media="all" />
 					
 			 </head>
@@ -194,7 +197,14 @@
 				if ($row[3]!='CERRADA'){//SI ESTA ABIERTA O EN TRAMITE
 					//BLOQUEAMOS
 					mysqli_query($connection, "UPDATE peticiones SET BLOCK = 1 WHERE ID = ".$_POST['ID'].""); //BLOQUEAMOS
-					echo '<form method="post" action="cambiar_competencia.php">
+					
+					if ($_SERVER['PHP_SELF'] == "/helpcenter/controller/c_cambiar_competencia.php") {
+						echo '<form method="post" action="c_cambiar_competencia.php">';
+					}else{
+						echo '<form method="post" action="controller/c_cambiar_competencia.php">';
+					}
+					
+					echo '<form method="post" action="controller/c_cambiar_competencia.php">
 					 <input type="hidden" name="ID" value="'.$_POST['ID'].'" size="1"></input>&nbsp;Competencia: <b>'.$row[2].'</b>
 					 <select class="competencia" name="competencia" id="competencia">';
 						$tabla_competencias = mysqli_query ($connection, "SELECT DISTINCT TIPO FROM tipos_combos WHERE TIPO <> 'CATEGORIA' AND TIPO <> 'PRODUCTO'");
@@ -400,8 +410,12 @@
 							<input class="submit" name="submit" type="submit" id="submit" value="No disponible" disabled="disabled"/>
 						</form>';
 					}else{
-						echo '<form method="post" action="ver_historial.php" target="_blank">
-						<input type="hidden" name="ID" value="'.$_POST['ID'].'" size="1">
+						if ($_SERVER['PHP_SELF'] == "/helpcenter/controller/c_cambiar_competencia.php") {
+							echo '<form method="post" action="../ver_historial.php" target="_blank">';
+						}else{
+							echo '<form method="post" action="ver_historial.php" target="_blank">';
+						}
+						echo '<input type="hidden" name="ID" value="'.$_POST['ID'].'" size="1">
 						<input class="submit" name="submit" type="submit" id="submit" value="Ver..." />
 						</form>';
 					}
