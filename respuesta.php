@@ -198,14 +198,14 @@
 					//BLOQUEAMOS
 					mysqli_query($connection, "UPDATE peticiones SET BLOCK = 1 WHERE ID = ".$_POST['ID'].""); //BLOQUEAMOS
 					
-					if ($_SERVER['PHP_SELF'] == "/helpcenter/controller/c_cambiar_competencia.php") {
+					if (strpos($_SERVER['PHP_SELF'],'controller') != false){
 						echo '<form method="post" action="c_cambiar_competencia.php">';
 					}else{
 						echo '<form method="post" action="controller/c_cambiar_competencia.php">';
 					}
 					
-					echo '<form method="post" action="controller/c_cambiar_competencia.php">
-					 <input type="hidden" name="ID" value="'.$_POST['ID'].'" size="1"></input>&nbsp;Competencia: <b>'.$row[2].'</b>
+					
+				echo '<input type="hidden" name="ID" value="'.$_POST['ID'].'" size="1"></input>&nbsp;Competencia: <b>'.$row[2].'</b>
 					 <select class="competencia" name="competencia" id="competencia">';
 						$tabla_competencias = mysqli_query ($connection, "SELECT DISTINCT TIPO FROM tipos_combos WHERE TIPO <> 'CATEGORIA' AND TIPO <> 'PRODUCTO'");
 						while ($row_tabla_competencias = mysqli_fetch_array($tabla_competencias))
@@ -225,7 +225,7 @@
 					
 	  
 				if (($row[3]=='CERRADA')&&($_SESSION['level'] == 3 || $_SESSION['level'] == 2 || $_SESSION['level'] == 1)){ //CIERTOS NIVELES PUEDEN MODIFICAR EL ESTADO
-					echo '<form method="post" action="cambiar_estado.php">
+					echo '<form method="post" action="controller/c_cambiar_estado.php">
 					<input type="hidden" name="ID" value="'.$_POST['ID'].'" size="1"></input>&nbsp;Estado: <span style="background-color: #FF0000"><b>CERRADA</b></span>
 					<select class="estado" name="estado" id="estado">
 						<option class="estado_verde" value="0">ABIERTA</option>
@@ -343,8 +343,13 @@
 				
 				
 				if (($row[3]!='CERRADA') && ( !isset ( $_POST['buscarXid']) || $_POST['buscarXid'] != 1)){ //SI NO ESTA CERRADA Y NO HEMOS BUSCADO POR ID
-					echo '<form id="formLarge" method="post" action="respuesta.php">
-							<fieldset>
+					if (strpos($_SERVER['PHP_SELF'],'controller') != false){
+						echo '<form id="formLarge" method="post" action="../respuesta.php">';
+					}else{
+						echo '<form id="formLarge" method="post" action="respuesta.php">';
+					}
+					
+						echo '<fieldset>
 								<legend>Nuevo comentario</legend>
 								<input type="hidden" name="enviar_peticion" value="1" size="1"></input>
 								<input type="hidden" name="ID" value="'.$_POST['ID'].'" size="1"></input>
@@ -410,7 +415,7 @@
 							<input class="submit" name="submit" type="submit" id="submit" value="No disponible" disabled="disabled"/>
 						</form>';
 					}else{
-						if ($_SERVER['PHP_SELF'] == "/helpcenter/controller/c_cambiar_competencia.php") {
+						if (strpos($_SERVER['PHP_SELF'],'/helpcenter/controller/') != false) {
 							echo '<form method="post" action="../ver_historial.php" target="_blank">';
 						}else{
 							echo '<form method="post" action="ver_historial.php" target="_blank">';
