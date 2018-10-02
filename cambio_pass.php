@@ -11,60 +11,17 @@
 
 
 	if ($_SESSION['level'] == 9 || $_SESSION['level'] == 4 || $_SESSION['level'] == 3 || $_SESSION['level'] == 2 || $_SESSION['level'] == 1) {
-			if ( isset ( $_POST['enviar_peticion']) && $_POST['enviar_peticion'] == 1){ //SE TRATA DE UN CAMBIO DE PASS PROPIO
-			if (($_POST['pass'] == '') or ($_POST['pass2'] == ''))
-			{
-				Header("Location:cambio_pass.php?mensaje=2"); //Enviamos al form de reseteo con el mensaje
-			}else{
-				$sql = mysqli_query ($connection, "SELECT * FROM users WHERE nick LIKE '".$_SESSION['usuario']."'");
-				$row=mysqli_fetch_row($sql);
-				$pass=$row[1];
-				//Comprobamos que la pass y pass1 son iguales, sino volvemos a reseteo con el mensaje
-				if (($_POST['pass'] != $_POST['pass2']) || ($_POST['antigua'] != $pass)){
-					Header("Location:cambio_pass.php?mensaje=2"); //Enviamos al form de reseteo con el mensaje
-				}else{
-				//Quitamos el codigo malicioso de $_POST[nick] y $_POST['pass']
-				$pass = stripslashes($_POST['pass']);
-				$pass = strip_tags($pass);
-				$reseteador = $_SESSION['usuario'];
-				mysqli_query ($connection, "UPDATE users SET pass = '".$pass."', intentos = 0, reseteador ='".$reseteador."' WHERE nick LIKE '".$_SESSION['usuario']."'"); //Actualizamos y ponemos intentos a 0
-				Header("Location:cambio_pass.php?mensaje=1"); //Enviamos al form de registro que está en reseteo.php con el codigo 1
-				}
-			}
-		}else if ( isset ( $_POST['enviar_peticion']) && $_POST['enviar_peticion'] == 2){ //SE TRATA DE UN CAMBIO DE PASS DE OTRO USUARIO
-			if (($_POST['pass'] == '') or ($_POST['pass2'] == ''))
-			{
-				Header("Location:cambio_pass.php?mensaje=2"); //Enviamos al form de reseteo con el mensaje
-			}else{
-				$sql = mysqli_query ($connection, "SELECT * FROM users WHERE nick LIKE '".$_POST['nick']."'");
-				$row=mysqli_fetch_row($sql);
-				$pass=$row[1];
-				//Comprobamos que la pass y pass1 son iguales, sino volvemos a reseteo con el mensaje
-				if ($_POST['pass'] != $_POST['pass2']){
-					Header("Location:cambio_pass.php?mensaje=2"); //Enviamos al form de reseteo con el mensaje
-				}else{
-					//Quitamos el codigo malicioso de $_POST['pass']
-					$pass = stripslashes($_POST['pass']);
-					$pass = strip_tags($pass);
-					$reseteador = $_SESSION['usuario'];
-					mysqli_query ($connection, "UPDATE users SET pass = '".$pass."', intentos = 0, reseteador ='".$reseteador."' WHERE nick LIKE '".$_POST['nick']."'"); //Actualizamos y ponemos intentos a 0
-					Header("Location:cambio_pass.php?mensaje=1"); //Enviamos al form de registro que está en reseteo.php con el codigo 1
-				}
-			}
-		}else if ( isset ( $_POST['enviar_peticion']) && $_POST['enviar_peticion'] == 3){ //SE TRATA DE UN RESETEO DE PASS
-			$reseteador = $_SESSION['usuario'];
-			mysqli_query ($connection, "UPDATE users SET intentos = 0, reseteador ='".$reseteador."' WHERE nick LIKE '".$_POST['nick2']."'"); //Actualizamos y ponemos intentos a 0
-			Header("Location:cambio_pass.php?mensaje=3"); 
-		}else {
-			if ($_SESSION['block'] > 0){
-				mysqli_query ($connection, "UPDATE peticiones SET BLOCK = 0 WHERE ID = ".$_SESSION['block'].""); //DESBLOQUEAMOS
-				$_SESSION['block'] = 0;
-			}
+			
+		if ($_SESSION['block'] > 0){
+			mysqli_query ($connection, "UPDATE peticiones SET BLOCK = 0 WHERE ID = ".$_SESSION['block'].""); //DESBLOQUEAMOS
+			$_SESSION['block'] = 0;
+		}
 		echo '<html>
 			  <head>
 					<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 					<title>HELPCENTER - RESETEO PASS</title>
 					<link href="styles.css" rel="stylesheet" type="text/css" />
+					<link href="../styles.css" rel="stylesheet" type="text/css" /> 
 			</head>
 			  <body style="font: 13px/20px sans-serif;" link="#0000ff" vlink="#0000ff">
 					<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>';
@@ -76,12 +33,6 @@
 			}
 			
 			
-			$mensaje = "";
-		
-			if ( isset ( $_GET['mensaje'] ) ){
-				$mensaje = $_GET['mensaje'];
-			}	
-			
 			if ($mensaje==1){
 				echo 'OPERACION REALIZADA CON EXITO';
 			}else if ($mensaje==2){
@@ -89,12 +40,18 @@
 			}else if ($mensaje==3){
 				echo 'RESETEO REALIZADO CON EXITO';
 			}
+			
 			echo '<blockquote><blockquote><blockquote><blockquote><blockquote>
 					<p align="left"><b><font size="4">CAMBIO DE PASSWORD PROPIO</font></b></p>
 				</blockquote></blockquote></blockquote></blockquote></blockquote>	
-				<blockquote><blockquote><blockquote><blockquote><blockquote>
-					<form id="searchform" method="post" action="cambio_pass.php">
-					<fieldset>
+				<blockquote><blockquote><blockquote><blockquote><blockquote>';
+					if (strpos($_SERVER['PHP_SELF'],'controller') != false){
+						echo '<form id="searchform" method="post" action="c_cambiar_pass.php">';
+					}else{
+						echo '<form id="searchform" method="post" action="controller/c_cambiar_pass.php">';
+					}
+				
+					echo '<fieldset>
 						<legend>Cambio pass</legend>
 						<p>Por favor, introduzca los datos</p>
 						<input type="hidden" name="enviar_peticion" value="1" size="1"></input>
@@ -118,9 +75,13 @@
 					<p align="left"><b><font size="4">CAMBIO DE PASSWORD DE OTRO USUARIO</font></b></p>
 				</blockquote></blockquote></blockquote></blockquote></blockquote>
 				
-				<blockquote><blockquote><blockquote><blockquote><blockquote>
-					<form id="searchform" method="post" action="cambio_pass.php">
-					<fieldset>
+				<blockquote><blockquote><blockquote><blockquote><blockquote>';
+					if (strpos($_SERVER['PHP_SELF'],'controller') != false){
+						echo '<form id="searchform" method="post" action="c_cambiar_pass.php">';
+					}else{
+						echo '<form id="searchform" method="post" action="controller/c_cambiar_pass.php">';
+					}
+				echo '<fieldset>
 						<legend>Cambio pass</legend>
 						<p>Por favor, introduzca los datos</p>
 						<input type="hidden" name="enviar_peticion" value="2" size="1"></input>
@@ -148,9 +109,14 @@
 					<p align="left"><b><font size="4">RESETEO DE PASSWORD</font></b></p>
 				</blockquote></blockquote></blockquote></blockquote></blockquote>
 			
-				<blockquote><blockquote><blockquote><blockquote><blockquote>
-					<form id="searchform" method="post" action="cambio_pass.php">
-					<fieldset>
+				<blockquote><blockquote><blockquote><blockquote><blockquote>';
+					if (strpos($_SERVER['PHP_SELF'],'controller') != false){
+						echo '<form id="searchform" method="post" action="c_cambiar_pass.php">';
+					}else{
+						echo '<form id="searchform" method="post" action="controller/c_cambiar_pass.php">';
+					}
+					
+					echo '<fieldset>
 						<legend>Reseteo</legend>
 						<p>Por favor, seleccione usuario</p>
 						<input type="hidden" name="enviar_peticion" value="3" size="1"></input>
@@ -171,7 +137,7 @@
 		echo '<p>&nbsp;</p>
 		</body>
 		</html>';
-		}		
+				
 	} else {
 		$ahora = getdate(); //Obtiene un array con los datos de la fecha y hora actual
 		$fecha = $ahora["year"]."-".$ahora["mon"]."-".$ahora["mday"]." ".$ahora["hours"].":".$ahora["minutes"].":".$ahora["seconds"]; //Obtiene el formato adecuado de fecha hora para insertar en la BBDD

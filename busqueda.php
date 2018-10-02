@@ -166,7 +166,7 @@
 								<td align="center">'.$dato["COMPETENCIA"].'</td>		
 								<td align="center">'.$dato["DATE"].'</td>
 								<td align="center">';
-									switch ($datos["STATE"]){
+									switch ($dato["STATE"]){
 										case 0:	echo '<img title="INCIDENCIA ABIERTA" height="25" src="../images/abierta_ico.gif" alt="NO IMAGEN"></img>';
 												break;
 										case 1: echo '<img title="INCIDENCIA EN TRAMITE" height="25" src="../images/tramite_ico.gif" alt="NO IMAGEN"></img>';
