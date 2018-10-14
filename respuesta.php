@@ -380,7 +380,7 @@
 				echo '
 				<table>
 				
-				<form name="form_seguimiento" action="tracing.php" method="post">
+				<form name="form_seguimiento" action="controller/c_tracing.php" method="post">
 				<input type="hidden" name="ID" value="'.$_POST['ID'].'" size="1">
 				<tr>
 					<td colspan="2"></td>

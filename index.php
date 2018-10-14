@@ -411,8 +411,13 @@
 									}
 									else {
 										
-										echo '<input name="Submit" type="submit" id="submit" tabindex="13" value="Bloqueado" disabled = "disabled"></input>
-											<a href='.$ruta.'unlock.php?ID='.$datos["ID"].'><img border="0" src="'.$ruta.'images/candado.gif" width="20" height="20" alt="NO IMAGEN"></img></a>';
+										echo '<input name="Submit" type="submit" id="submit" tabindex="13" value="Bloqueado" disabled = "disabled"></input>';
+										if (strpos($_SERVER['PHP_SELF'],'controller') != false){
+												echo '<a href='.$ruta.'c_unlock.php?ID='.$datos["ID"].'><img border="0" src="'.$ruta.'images/candado.gif" width="20" height="20" alt="NO IMAGEN"></img></a>';
+										}else{
+												echo '<a href='.$ruta.'controller/c_unlock.php?ID='.$datos["ID"].'><img border="0" src="'.$ruta.'images/candado.gif" width="20" height="20" alt="NO IMAGEN"></img></a>';
+										}
+											
 									}
 										
 							echo '</td>

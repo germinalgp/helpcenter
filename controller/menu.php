@@ -140,7 +140,7 @@
 					<b>'.$user["nombre"].'</b>
 					<br /><b>Usuario:</b> '.$_SESSION['usuario'].'
 					<br /><b>Departamento:</b> '.$user["departamento"].'
-					<br /><b>Nivel:&nbsp;&nbsp;&nbsp;</b><img border="0" src="'.$user["avatar"].'" height="30" align="middle" title="'.$user["descripcion"].'" alt="NO FOTO"></img>  
+					<br /><b>Nivel:&nbsp;&nbsp;&nbsp;</b><img border="0" src="../'.$user["avatar"].'" height="30" align="middle" title="'.$user["descripcion"].'" alt="NO FOTO"></img>  
 				 </td>
 				</tr>
 				</table>
