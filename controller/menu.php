@@ -108,7 +108,7 @@
 					}
 				}	
 				
-				echo '<td width="48"><a href="logout.php" title="SALIR DE LA APLICACI&#211;N"><div class="centrar-imagen"><img border="0" src="../images/salir.jpg" alt="NO IMAGEN"></img></div></a></td>
+				echo '<td width="48"><a href="../logout.php" title="SALIR DE LA APLICACI&#211;N"><div class="centrar-imagen"><img border="0" src="../images/salir.jpg" alt="NO IMAGEN"></img></div></a></td>
 					<td width="300"></td>
 					<td style="font-size:10px; text-align:center">
 						Buscar incidencia por ID

@@ -320,7 +320,7 @@
 				   echo '<form id="formLarge"><fieldset>
 						   <legend> Ficheros adjuntos</legend>';
 						   for ($i = 0; $i < count($ficheros); $i++) {
-							  echo "<a href='download.php?ID=".$_POST['ID']."&download_file=".urlencode($ficheros[$i]["name"])."' target='_new'>".$ficheros[$i]["name"]."</a>&nbsp;(".number_format($ficheros[$i]["size"]/(1024*1024), 2, '.', ' ')."&nbsp;Mb)<br/>\n";
+							  echo "<a href='controller/c_download.php?ID=".$_POST['ID']."&download_file=".urlencode($ficheros[$i]["name"])."' target='_new'>".$ficheros[$i]["name"]."</a>&nbsp;(".number_format($ficheros[$i]["size"]/(1024*1024), 2, '.', ' ')."&nbsp;Mb)<br/>\n";
 						   }
 
 						
