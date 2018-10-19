@@ -28,18 +28,26 @@
 				$mensaje = $_GET['mensaje'];
 			}	
 
+			if (strpos($_SERVER['PHP_SELF'],'controller') != false){
+				$ruta = '../';
+			}
+			
+			
 			if ($mensaje != ''){
-				echo '<body link="#0000ff" vlink="#0000ff" onload="TINY.box.show({url:\'message.php?mensaje='.$mensaje.'\',width:320,height:210})">';
+				echo '<body link="#0000ff" vlink="#0000ff" onload="TINY.box.show({url:\''.$ruta.'message.php?mensaje='.$mensaje.'\',width:320,height:210})">';
 			}else{
 				echo '<body link="#0000ff" vlink="#0000ff">';
 			}
 			
 			
+			
+			
+			
 			echo'<blockquote>
 			<table>
 				<tr>
-					<td><input onclick="TINY.box.show({url:\'inicio.php\',width:320,height:210})" class = "botones" type="button" value = "Entrar"></input></td>
-					<td><input onclick="TINY.box.show({url:\'registrar.php\',width:350,height:340})" class = "botones" type="button" value = "Registrar"></input></td>
+					<td><input onclick="TINY.box.show({url:\''.$ruta.'inicio.php\',width:320,height:210})" class = "botones" type="button" value = "Entrar"></input></td>
+					<td><input onclick="TINY.box.show({url:\''.$ruta.'registrar.php\',width:350,height:340})" class = "botones" type="button" value = "Registrar"></input></td>
 				<tr>
 			</table>
 			</blockquote>
