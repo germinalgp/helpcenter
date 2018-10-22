@@ -11,13 +11,15 @@
 	if ($_SESSION['level'] == 1){
 
 
-		if (!isset ( $_POST['enviar_peticion'])|| (($_POST['enviar_peticion'] != 1) && ($_POST['enviar_peticion'] != 2) && ($_POST['enviar_peticion'] != 3))){
+		
 			echo '<html>
 			  <head>
 					<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 					<title>HELPCENTER</title>
 					<link href="styles.css" rel="stylesheet" type="text/css" />
+					<link href="../styles.css" rel="stylesheet" type="text/css" />
 					<script type="text/javascript" src="tinybox.js"></script>
+					<script type="text/javascript" src="../tinybox.js"></script>
 					<script type="text/javascript">
 						function Valida (formulario, opc, confirmar){
 							if (confirmar == 1){
@@ -34,13 +36,17 @@
 			 </head>';
 
 		   $mensaje = "";
-		
+			
 			if ( isset ( $_GET['mensaje'] ) ){
 				$mensaje = $_GET['mensaje'];
-			}	
+			}
+
+			if (strpos($_SERVER['PHP_SELF'],'controller') != false){
+				$ruta = '../';
+			}
 
 			if ($mensaje != ''){
-				echo '<body style="font: 13px/20px sans-serif;" link="#0000ff" vlink="#0000ff" onload="TINY.box.show({url:\'message.php?mensaje='.$mensaje.'\',width:320,height:100})">';
+				echo '<body style="font: 13px/20px sans-serif;" link="#0000ff" vlink="#0000ff" onload="TINY.box.show({url:\''.$ruta.'message.php?mensaje='.$mensaje.'\',width:320,height:100})">';
 			}else{
 				echo '<body style="font: 13px/20px sans-serif;" link="#0000ff" vlink="#0000ff">';
 			}
@@ -55,7 +61,7 @@
 			
 			
 			//INICIO PRIMER FORMULARIO ---- DELETE CATEGORIA PRODUCTO
-			echo '<form id="searchformPeticion" name="deletecat_pro" method="post" action="controller/c_add_delete.php">
+			echo '<form id="searchformPeticion" name="deletecat_pro" method="post" action="'.$ruta.'controller/c_add_delete.php">
 						<fieldset>
 						<legend>Borrar Categoria / Producto</legend>
 						<input type="hidden" name="enviar_peticion" value="0" size="1"></input>';
@@ -114,7 +120,7 @@
 					///////////////////////FIN PRIMER FORMULARIO --- DELETE CATEGORIA PRODUCTO
 					
 					///////////////////////INICIO SEGUNDO FORMULARIO ---- ADD CATEGORIA
-				echo '<form id="searchformPeticion" name= "add_category" method="post" action="controller/c_add_delete.php">
+				echo '<form id="searchformPeticion" name= "add_category" method="post" action="'.$ruta.'controller/c_add_delete.php">
 						<fieldset>
 						<legend>A&ntilde;adir categor&iacute;a</legend>
 						<input type="hidden" name="enviar_peticion" value="0" size="1"></input>
@@ -144,7 +150,7 @@
 					///////////////////////FIN SEGUNDO FORMULARIO ---- ADD CATEGORIA
 					
 					///////////////////////INICIO TERCER FORMULARIO ---- ADD PRODUCTO
-				echo '<form id="searchformPeticion" name= "add_product" method="post" action="controller/c_add_delete.php">
+				echo '<form id="searchformPeticion" name= "add_product" method="post" action="'.$ruta.'controller/c_add_delete.php">
 						<fieldset>
 						<legend>A&ntilde;adir producto</legend>
 						<input type="hidden" name="enviar_peticion" value="0" size="1"></input>
@@ -172,7 +178,7 @@
 					</label></form>
 					</body></html>';
 
-		}
+		
 		
 	}else{
 		$ahora = getdate(); //Obtiene un array con los datos de la fecha y hora actual
