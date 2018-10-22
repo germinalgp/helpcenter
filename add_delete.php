@@ -55,7 +55,7 @@
 			
 			
 			//INICIO PRIMER FORMULARIO ---- DELETE CATEGORIA PRODUCTO
-			echo '<form id="searchformPeticion" name="deletecat_pro" method="post" action="add_delete.php">
+			echo '<form id="searchformPeticion" name="deletecat_pro" method="post" action="controller/c_add_delete.php">
 						<fieldset>
 						<legend>Borrar Categoria / Producto</legend>
 						<input type="hidden" name="enviar_peticion" value="0" size="1"></input>';
@@ -114,7 +114,7 @@
 					///////////////////////FIN PRIMER FORMULARIO --- DELETE CATEGORIA PRODUCTO
 					
 					///////////////////////INICIO SEGUNDO FORMULARIO ---- ADD CATEGORIA
-				echo '<form id="searchformPeticion" name= "add_category" method="post" action="add_delete.php">
+				echo '<form id="searchformPeticion" name= "add_category" method="post" action="controller/c_add_delete.php">
 						<fieldset>
 						<legend>A&ntilde;adir categor&iacute;a</legend>
 						<input type="hidden" name="enviar_peticion" value="0" size="1"></input>
@@ -144,7 +144,7 @@
 					///////////////////////FIN SEGUNDO FORMULARIO ---- ADD CATEGORIA
 					
 					///////////////////////INICIO TERCER FORMULARIO ---- ADD PRODUCTO
-				echo '<form id="searchformPeticion" name= "add_product" method="post" action="add_delete.php">
+				echo '<form id="searchformPeticion" name= "add_product" method="post" action="controller/c_add_delete.php">
 						<fieldset>
 						<legend>A&ntilde;adir producto</legend>
 						<input type="hidden" name="enviar_peticion" value="0" size="1"></input>
@@ -172,76 +172,6 @@
 					</label></form>
 					</body></html>';
 
-		}else if ($_POST['enviar_peticion'] == 1){
-			if ($_POST['combo_product_type'] != -1){ //HEMOS SELECCIONADO UN PRODUCTO
-				$combo_product_type = $_POST['combo_product_type'];
-				mysqli_query($connection, "DELETE FROM tipos_combos WHERE ID_COMBO = '".$combo_product_type."'");
-				$error = 16;
-				Header("Location:add_delete.php?mensaje=".$error.""); 
-			}else if ($_POST['combo_category_type']!= -1){ //HEMOS SELECCIONADO UNA CATEGORIA
-				$combo_category_type = $_POST['combo_category_type'];
-				mysqli_query($connection, "DELETE FROM tipos_combos WHERE ID_COMBO = '".$combo_category_type."' OR ID_PADRE = '".$combo_category_type."'");
-				$error = 17;
-				Header("Location:add_delete.php?mensaje=".$error.""); 
-			}else {//NO HEMOS SELECCIONADO NADA --- ERROR
-				$error = 7;
-				Header("Location:add_delete.php?mensaje=".$error."");
-			}
-		}else if ($_POST['enviar_peticion'] == 2){
-			if ($_POST['combo_issue_type'] == -1){
-				$error = 8;
-				Header("Location:add_delete.php?mensaje=".$error.""); 
-			}else if ($_POST['new_category'] == ""){
-				$error = 9;
-				Header("Location:add_delete.php?mensaje=".$error."");
-			}else{
-				$combo_issue_type = $_POST['combo_issue_type'];
-				$new_category = $_POST['new_category'];
-				//COMPROBAMOS QUE NO EXISTA
-				$existe = mysqli_query($connection, "SELECT ID_COMBO FROM tipos_combos WHERE DESCRIPCION = '".$new_category."' AND ID_PADRE = '".$combo_issue_type."'"); //Sentencia para buscarlo en la base de datos
-				$numrows=mysqli_num_rows($existe);
-				if ($numrows == 0){
-					$max_id = mysqli_query($connection, "SELECT MAX(id_combo) FROM tipos_combos"); //Sentencia para buscarlo en la base de datos
-					$row_max_id=mysqli_fetch_row($max_id);
-					$arreglo = (int)$row_max_id[0]+1;
-					$arreglo = str_pad($arreglo, 4, "0", STR_PAD_LEFT); //YA TENEMOS EL SIGUIENTE ID A ASIGNAR
-					mysqli_query($connection, "INSERT INTO tipos_combos (ID_COMBO, ID_PADRE, DESCRIPCION, TIPO, ORDEN) VALUES ('".$arreglo."', '".$combo_issue_type."', '".$new_category."', 'CATEGORIA', '0');");
-					$error = 15;
-					Header("Location:add_delete.php?mensaje=".$error.""); 
-				}else{
-					$error = 10;
-					Header("Location:add_delete.php?mensaje=".$error.""); 
-				}
-				
-			}
-		}else if ($_POST['enviar_peticion'] == 3){
-		if ($_POST['combo_category2_type'] == -1){
-				$error = 11;
-				Header("Location:add_delete.php?mensaje=".$error.""); 
-			}else if ($_POST['new_product'] == ""){
-				$error = 12;
-				Header("Location:add_delete.php?mensaje=".$error.""); 
-			}else{
-				$combo_category2_type = $_POST['combo_category2_type'];
-				$new_product = $_POST['new_product'];
-				//COMPROBAMOS QUE NO EXISTA
-				$existe = mysqli_query($connection, "SELECT ID_COMBO FROM tipos_combos WHERE DESCRIPCION = '".$new_product."'"); //Sentencia para buscarlo en la base de datos
-				$numrows=mysqli_num_rows($existe);
-				if ($numrows == 0){
-					$max_id = mysqli_query($connection, "SELECT MAX(id_combo) FROM tipos_combos"); //Sentencia para buscarlo en la base de datos
-					$row_max_id=mysqli_fetch_row($max_id);
-					$arreglo = (int)$row_max_id[0]+1;
-					$arreglo = str_pad($arreglo, 4, "0", STR_PAD_LEFT); //YA TENEMOS EL SIGUIENTE ID A ASIGNAR
-					mysqli_query($connection, "INSERT INTO tipos_combos (ID_COMBO, ID_PADRE, DESCRIPCION, TIPO, ORDEN) VALUES ('".$arreglo."', '".$combo_category2_type."', '".$new_product."', 'PRODUCTO', '0');");
-					$error = 14;
-					Header("Location:add_delete.php?mensaje=".$error.""); 
-				}else{
-					$error = 13;
-					Header("Location:add_delete.php?mensaje=".$error."");
-				}
-			}
-			
-		
 		}
 		
 	}else{
