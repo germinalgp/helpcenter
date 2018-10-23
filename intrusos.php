@@ -13,16 +13,20 @@
 
 	if ($_SESSION['level'] == 1) //SOLO PUEDEN ACCEDER EL PERSONAL CON NIVEL 1
 	{
+		if (strpos($_SERVER['PHP_SELF'],'controller') != false){
+			$ruta = '../';
+		}
+		
 		echo '<html>
 			<head>
 					<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 					<title>HELPCENTER - INTRUSOS</title>
-					<link href="styles.css" rel="stylesheet" type="text/css" />
-					<script type="text/javascript" src="src/js/jscal2.js"></script>
-					<script type="text/javascript" src="src/js/lang/en.js"></script>
-					<link rel="stylesheet" type="text/css" href="src/css/jscal2.css" />
-					<link rel="stylesheet" type="text/css" href="src/css/border-radius.css" />
-					<link rel="stylesheet" type="text/css" href="src/css/steel/steel.css" />
+					<link href="'.$ruta.'styles.css" rel="stylesheet" type="text/css" />
+					<script type="text/javascript" src="'.$ruta.'src/js/jscal2.js"></script>
+					<script type="text/javascript" src="'.$ruta.'src/js/lang/en.js"></script>
+					<link rel="stylesheet" type="text/css" href="'.$ruta.'src/css/jscal2.css" />
+					<link rel="stylesheet" type="text/css" href="'.$ruta.'src/css/border-radius.css" />
+					<link rel="stylesheet" type="text/css" href="'.$ruta.'src/css/steel/steel.css" />
 			 </head>
 
 
@@ -41,7 +45,7 @@
 			echo '<table cellpading="1" cellspacing="0" width="600">
 				<tr>
 					<td>
-						<form id="formMasShort" method="post" action="intrusos.php">
+						<form id="formMasShort" method="post" action="'.$ruta.'controller/c_busqueda_intrusiones.php">
 						<fieldset>
 						<legend>Busqueda de intrusiones</legend>
 						<p>Por favor, configure la busqueda: </p>
@@ -160,7 +164,7 @@
 			echo '<table cellpading="1" cellspacing="0" width="600">
 				<tr>
 					<td>
-						<form id="formMasShort" method="post" action="intrusos.php">
+						<form id="formMasShort" method="post" action="'.$ruta.'controller/c_busqueda_intrusiones.php">
 						<fieldset>
 						<legend>Busqueda de intrusiones</legend>
 						<p>Por favor, configure la busqueda: </p>
@@ -244,8 +248,16 @@
 					</fieldset>
 				</form>
 					
-					</td>
-					<td width="50"></td>
+					</td>';
+				if (empty($datos)){ //SI NO TENEMOS RESULTADOS
+					echo '<td width="50"></td>
+					<td colspan="5">
+						<center>NO HAY RESULTADOS</center>
+						
+					</td>';
+					
+				}else{
+					echo '<td width="50"></td>
 					<td>
 						<table width="650">
 						<tr>
@@ -263,25 +275,14 @@
 						$contador=1;
 						$colorFila="filaBlanca";
 						
-						if (($_POST['fechainicial']=='') && ($_POST['fechafinal']=='')){
-							$query = "SELECT * FROM intrusos WHERE revisado = ".$_POST['revisada']." AND tipo = ".$_POST['tipo']." order by fecha DESC";	
-						}else if (($_POST['fechainicial']<>'') && ($_POST['fechafinal']=='')){
-							$query = "SELECT * FROM intrusos WHERE revisado = ".$_POST['revisada']." AND tipo = ".$_POST['tipo']." AND fecha >= '".$_POST['fechainicial']."' order by fecha DESC";	
-						}else if (($_POST['fechainicial']=='') && ($_POST['fechafinal']<>'')){
-							$query = "SELECT * FROM intrusos WHERE revisado = ".$_POST['revisada']." AND tipo = ".$_POST['tipo']." AND fecha <= '".$_POST['fechafinal']."' order by fecha DESC";	
-						}else{
-							$query = "SELECT * FROM intrusos WHERE revisado = ".$_POST['revisada']." AND tipo = ".$_POST['tipo']." AND fecha <= '".$_POST['fechafinal']."' AND fecha >= '".$_POST['fechainicial']."' order by fecha DESC";	
-						}
-						$result=mysqli_query ($connection, $query);
-						$numrows=mysqli_num_rows($result);
-						while ($datos=mysqli_fetch_array($result))
-						{
+						
+						foreach ($datos as $dato){
 							echo '<tr class="'.$colorFila.'">
-									<td>'.$datos["nick"].'</td>
-									<td>'.$datos["pass"].'</td>
-									<td><center>'.$datos["IP"].'</center></td>
-									<td><center>'.$datos["descripcion"].'</center></td>
-									<td><center>'.$datos["fecha"].'</center></td>
+									<td>'.$dato["nick"].'</td>
+									<td>'.$dato["pass"].'</td>
+									<td><center>'.$dato["IP"].'</center></td>
+									<td><center>'.$dato["descripcion"].'</center></td>
+									<td><center>'.$dato["fecha"].'</center></td>
 								</tr>';
 							if ($contador%2 == 0) {
 								$colorFila = "filaBlanca";
@@ -291,10 +292,14 @@
 							$contador++;
 																
 						}
-				if ($_POST['revisada']==0 && $numrows<>0){ //Si no estan revisadas damos la opcion de revisar
-					echo '<tr><input value="Pulsar una vez revisados" type="button" onclick="location.href=\'resetIntrusiones.php?tipo='.$_POST['tipo'].'&fechainicial='.$_POST['fechainicial'].'&fechafinal='.$_POST['fechafinal'].'\';"/></tr>';
+				if ($_POST['revisada']==0 && $contador>1){ //Si no estan revisadas damos la opcion de revisar
+					echo '<tr><input value="Pulsar una vez revisados" type="button" onclick="location.href=\'c_resetIntrusiones.php?tipo='.$_POST['tipo'].'&fechainicial='.$_POST['fechainicial'].'&fechafinal='.$_POST['fechafinal'].'\';"/></tr>';
 				}
-				echo '</table></td></tr></table>';
+				echo '</table></td>';
+				}
+				
+				
+				echo '</tr></table>';
 		}
 			
 				echo '<p>&nbsp;</p>

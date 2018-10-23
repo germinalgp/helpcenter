@@ -94,7 +94,7 @@
 			</blockquote>';
 			
 			$intentos = "";
-			$intrusion = "";
+			
 			$intrusion_n4 = "";
 			
 			if ( isset ( $_GET['intentos'] ) ){
