@@ -22,7 +22,7 @@
 					<script type="text/javascript" src="tinybox.js"></script>
 					<script type="text/javascript" src="../tinybox.js"></script>
 			</head>';
-			$mensaje = "";
+			
 		
 			if ( isset ( $_GET['mensaje'] ) ){
 				$mensaje = $_GET['mensaje'];
@@ -30,12 +30,14 @@
 
 			if (strpos($_SERVER['PHP_SELF'],'controller') != false){
 				$ruta = '../';
+				$rutatiny = "1";
 			}
 			
 			
-			if ($mensaje != ''){
+			if (!is_null($mensaje)){
 				echo '<body link="#0000ff" vlink="#0000ff" onload="TINY.box.show({url:\''.$ruta.'message.php?mensaje='.$mensaje.'\',width:320,height:210})">';
 			}else{
+				
 				echo '<body link="#0000ff" vlink="#0000ff">';
 			}
 			
@@ -47,7 +49,7 @@
 			<table>
 				<tr>
 					<td><input onclick="TINY.box.show({url:\''.$ruta.'inicio.php\',width:320,height:210})" class = "botones" type="button" value = "Entrar"></input></td>
-					<td><input onclick="TINY.box.show({url:\''.$ruta.'registrar.php\',width:350,height:340})" class = "botones" type="button" value = "Registrar"></input></td>
+					<td><input onclick="TINY.box.show({url:\''.$ruta.'registrar.php?rutatiny='.$rutatiny.'\',width:350,height:340})" class = "botones" type="button" value = "Registrar"></input></td>
 				<tr>
 			</table>
 			</blockquote>
