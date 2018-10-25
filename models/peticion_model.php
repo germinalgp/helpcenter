@@ -146,7 +146,7 @@ class peticion_model{
 				$sql_select_last_issue = "SELECT MAX(id) FROM peticiones";
 				$query_last_issue = $this->db->query($sql_select_last_issue);
 				$row = mysqli_fetch_row ($query_last_issue);			
-				
+				$this->error = $this->error.$row[0];
 				// Actualizar la tabla "comentarios" con los datos de la peticion
 				$sql_insert2 = "INSERT INTO comentarios (id_issue, author, comments, date) values ('".$row[0]."','".$_SESSION['usuario']."','".$post_comentario."','".$fecha_peticion2."')";
 				$this->db->query($sql_insert2);

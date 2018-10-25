@@ -19,10 +19,15 @@
 					<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 					<title>HELPCENTER - CREAR INCIDENCIA</title>
 					<link href="styles.css" rel="stylesheet" type="text/css" />
+					<link href="../styles.css" rel="stylesheet" type="text/css" />
 					
 					<link rel="stylesheet" type="text/css" href="src/calendario_peticion.css" />
+					<link rel="stylesheet" type="text/css" href="../src/calendario_peticion.css" />
+					
 					<script type="text/javascript" src="tinybox.js"></script>
+					<script type="text/javascript" src="../tinybox.js"></script>
 					<script type="text/javascript" src="src/calendario_peticion.js"></script>
+					<script type="text/javascript" src="../src/calendario_peticion.js"></script>
 					
 					<script type="text/javascript">
 						function Valida (formulario){
@@ -43,10 +48,16 @@
 				
 			
 			
-			if ($mensaje != ''){
-				echo '<body style="font: 13px/20px sans-serif;" link="#0000ff" vlink="#0000ff" onload="TINY.box.show({url:\'message.php?mensaje='.$mensaje.'\',width:320,height:240})">';
+			if (strpos($_SERVER['PHP_SELF'],'controller') != false){
+				$ruta = '../';
+			}
+			
+			
+			if (!is_null($mensaje)){
+				echo '<body link="#0000ff" vlink="#0000ff" onload="TINY.box.show({url:\''.$ruta.'message.php?mensaje='.$mensaje.'\',width:320,height:210})">';
 			}else{
-				echo '<body style="font: 13px/20px sans-serif;" link="#0000ff" vlink="#0000ff">';
+				
+				echo '<body link="#0000ff" vlink="#0000ff">';
 			}
 				
 			echo '<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>';
@@ -61,9 +72,9 @@
 			
 			echo '<blockquote><blockquote>';
 			if ($combo_on==""){
-				echo '<blockquote><blockquote><blockquote><img border="0" src="images/step_one.jpg" alt="NO IMAGEN"></img></blockquote></blockquote></blockquote>	
+				echo '<blockquote><blockquote><blockquote><img border="0" src="'.$ruta.'images/step_one.jpg" alt="NO IMAGEN"></img></blockquote></blockquote></blockquote>	
 				
-					<form id="searchformPeticion" method="post" action="peticion.php">
+					<form id="searchformPeticion" method="post" action="'.$ruta.'peticion.php">
 					<fieldset>
 					<legend>Nueva incidencia</legend>
 					<p>Por favor, introduzca los siguientes datos:</p>
@@ -80,9 +91,9 @@
 			}else if (($combo_on=="0001") || ($combo_on == "0002")) { //INCIDENCIA SOFTWARE O HARDWARE
 				$combo_issue_type = $combo_on;
 				
-				echo '<blockquote><blockquote><blockquote><img border="0" src="images/step_two.jpg" alt="NO IMAGEN"></img></blockquote></blockquote></blockquote>
+				echo '<blockquote><blockquote><blockquote><img border="0" src="'.$ruta.'images/step_two.jpg" alt="NO IMAGEN"></img></blockquote></blockquote></blockquote>
 					
-					<form id="searchformPeticion" method="post" action="peticion.php">
+					<form id="searchformPeticion" method="post" action="'.$ruta.'peticion.php">
 						<fieldset>
 						<legend>Nueva incidencia</legend>
 						<p>Por favor, introduzca los siguientes datos:</p>
@@ -112,9 +123,9 @@
 			}else if ($combo_on == "0010"){ //CATEGORIA
 				$combo_issue_type = $_POST['combo_issue_type'];
 				$combo_category_type = $_POST['combo_category_type'];
-				echo '<blockquote><blockquote><blockquote><img border="0" src="images/step_three.jpg" alt="NO IMAGEN"></img></blockquote></blockquote></blockquote>
+				echo '<blockquote><blockquote><blockquote><img border="0" src="'.$ruta.'images/step_three.jpg" alt="NO IMAGEN"></img></blockquote></blockquote></blockquote>
 					
-					<form id="searchformPeticion" method="post" action="controller/c_peticion.php">
+					<form id="searchformPeticion" method="post" action="'.$ruta.'controller/c_peticion.php">
 						<fieldset>
 						<legend>Nueva incidencia</legend>
 						<p>Por favor, introduzca los siguientes datos:</p>
@@ -166,9 +177,9 @@
 			}else if ($combo_on == "0006"){
 				$combo_issue_type = $combo_on;
 				
-				echo '<blockquote><blockquote><blockquote><img border="0" src="images/step_two_fin.jpg" alt="NO IMAGEN"></img></blockquote></blockquote></blockquote>
+				echo '<blockquote><blockquote><blockquote><img border="0" src="'.$ruta.'images/step_two_fin.jpg" alt="NO IMAGEN"></img></blockquote></blockquote></blockquote>
 					
-					<form id="searchformPeticion" method="post" action="controller/c_peticion.php">
+					<form id="searchformPeticion" method="post" action="'.$ruta.'controller/c_peticion.php">
 						<fieldset>
 						<legend>Nueva incidencia</legend>
 						<p>Por favor, introduzca los siguientes datos:</p>
@@ -196,9 +207,9 @@
 			}else if (($combo_on == "0003")){
 				$combo_issue_type = $combo_on;
 				
-				echo '<blockquote><blockquote><blockquote><img border="0" src="images/step_two_fin.jpg" alt="NO IMAGEN"></img></blockquote></blockquote></blockquote>
+				echo '<blockquote><blockquote><blockquote><img border="0" src="'.$ruta.'images/step_two_fin.jpg" alt="NO IMAGEN"></img></blockquote></blockquote></blockquote>
 					
-					<form id="searchformPeticion" method="post" action="controller/c_peticion.php">
+					<form id="searchformPeticion" method="post" action="'.$ruta.'controller/c_peticion.php">
 						<fieldset>
 						<legend>Nueva incidencia</legend>
 						<p>Por favor, introduzca los siguientes datos:</p>

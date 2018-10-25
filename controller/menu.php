@@ -162,17 +162,17 @@
 		if ($btn_home){
 			$img_home = '<div class="centrar-imagen"><img title="OPCI&#211;N ACTUAL" border="0" src="../images/home_on.jpg" alt="NO IMAGEN"></img></div>'; 
 		}else{
-			$img_home = '<div class="centrar-imagen"><img title="HOME" border="0" src="../../images/home.jpg" alt="NO IMAGEN"></img></div>'; 
+			$img_home = '<div class="centrar-imagen"><img title="HOME" border="0" src="../images/home.jpg" alt="NO IMAGEN"></img></div>'; 
 		}
 		
 		if ($btn_crear){
-			$img_crear = '<div class="centrar-imagen"><img title="OPCI&#211;N ACTUAL" border="0" src="../../images/incidencia_add_on.jpg" alt="NO IMAGEN"></img></div>'; 
+			$img_crear = '<div class="centrar-imagen"><img title="OPCI&#211;N ACTUAL" border="0" src="../images/incidencia_add_on.jpg" alt="NO IMAGEN"></img></div>'; 
 		}else{
-			$img_crear = '<div class="centrar-imagen"><img title="A&#209;ADIR INCIDENCIA" border="0" src="../../images/incidencia_add.jpg" alt="NO IMAGEN"></img></div>'; 
+			$img_crear = '<div class="centrar-imagen"><img title="A&#209;ADIR INCIDENCIA" border="0" src="../images/incidencia_add.jpg" alt="NO IMAGEN"></img></div>'; 
 		}
 		
 		if ($btn_pass){
-			$img_pass = '<div class="centrar-imagen"><img title="OPCI&#211;N ACTUAL" border="0" src="../../images/password_on.jpg" alt="NO IMAGEN"></img></div>'; 
+			$img_pass = '<div class="centrar-imagen"><img title="OPCI&#211;N ACTUAL" border="0" src="../images/password_on.jpg" alt="NO IMAGEN"></img></div>'; 
 		}else{
 			$img_pass = '<div class="centrar-imagen"><img title="GESTI&#211;N PASSWORD" border="0" src="../images/password.jpg" alt="NO IMAGEN"></img></div>'; 
 		}
@@ -223,7 +223,7 @@
 				 <td width="600">
 					<b>'.$user["nombre"].'</b>  
 					<br/><b>Usuario:</b> '.$_SESSION['usuario'].'
-					<br/><b>Nivel:&nbsp;&nbsp;&nbsp;</b><img border="0" src="'.$user["avatar"].'" height="30" align="middle" title="'.$user["descripcion"].'" alt="NO FOTO"></img>  
+					<br/><b>Nivel:&nbsp;&nbsp;&nbsp;</b><img border="0" src="../'.$user["avatar"].'" height="30" align="middle" title="'.$user["descripcion"].'" alt="NO FOTO"></img>  
 				</td>
 				</tr>
 				</table>

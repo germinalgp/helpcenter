@@ -143,7 +143,9 @@
 	}
 	else
 	{
-		header('refresh:60');
+		if ($_SESSION['level'] != 9){
+			header('refresh:60');
+		}
 		echo '<html>
 			  <head>
 					<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
@@ -151,6 +153,7 @@
 					<link href="styles.css" rel="stylesheet" type="text/css" />
 					<link href="../styles.css" rel="stylesheet" type="text/css" /> 	 					
 					<script type="text/javascript" src="tinybox.js"></script>
+					<script type="text/javascript" src="../tinybox.js"></script>
 					<script type="text/javascript" language="JavaScript">
 						function js_ordenar(num_orden){
 							switch (num_orden){
@@ -182,19 +185,15 @@
 					
 			 </head>';
 
-			
+			if (strpos($_SERVER['PHP_SELF'],'controller') != false){
+				$ruta = '../';
+			}
 		
-			if ( isset ( $_GET['mensaje'] ) ){
-				$mensaje = $_GET['mensaje'];
-			}	
-			
-			
-			if ( isset ( $_GET['numero'] ) ){
-				$numero = $_GET['numero'];
-			}	
+			$id_mensaje = substr($mensaje,0,2);
+			$numero = substr($mensaje,2);
 			
 			if ($mensaje != ''){
-				echo '<body style="font: 13px/20px sans-serif;" link="#0000ff" vlink="#0000ff" onload="TINY.box.show({url:\'message.php?mensaje='.$mensaje.'&numero='.$numero.'\',width:320,height:240})">';
+				echo '<body style="font: 13px/20px sans-serif;" link="#0000ff" vlink="#0000ff" onload="TINY.box.show({url:\''.$ruta.'message.php?mensaje='.$id_mensaje.'&numero='.$numero.'\',width:320,height:240})">';
 			}else{
 				echo '<body style="font: 13px/20px sans-serif;" link="#0000ff" vlink="#0000ff">';
 			}
