@@ -115,12 +115,14 @@
 					{
 						echo '<h2><font size="2" color="red">La cuenta esta bloqueada, consulte con un administrador</font></h2>';
 					}
-					
+				
+			
+			
 			if ( isset ( $_GET['intrusion'] ) ){
 				$intrusion = $_GET['intrusion'];
 			}	
 			
-			if ($intrusion == 1){
+			if ($intrusion == 1 || $mensaje == 1){
 				$IP = $_SERVER['REMOTE_ADDR'];
 				echo '<font size="2" color="red">Intento de intrusi&#243n sin logueo desde la IP <b>'.$IP.'</b> ha sido grabada</font>';
 			}	
@@ -180,13 +182,13 @@
 					
 			 </head>';
 
-			$mensaje = "";
+			
 		
 			if ( isset ( $_GET['mensaje'] ) ){
 				$mensaje = $_GET['mensaje'];
 			}	
 			
-			$numero = "";
+			
 			if ( isset ( $_GET['numero'] ) ){
 				$numero = $_GET['numero'];
 			}	
