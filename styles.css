@@ -103,6 +103,7 @@ body { background-color: rgb(216, 232, 251); background-image: url(images/fondo_
 #searchformPeticion .blanco { background-color:#E8F3FF;}
 .filaMorada { background-color: #D8E8FB; border: 1px solid #666666;}
 .filaBlanca { background-color: #FFFFFF; border: 1px solid #666666;}
+.filaTracing { background-color: #FFF75E; border: 1px solid #666666; }
 .celda { border-style: solid; border-width: 1px; background-color:#E8F3FF; font-size:9pt;}
 .botones { width:100px; margin-right:1px; border:1px solid #999999; float:right; clear:right; background:#E8F3FF; }
 .centrar-imagen {text-align: center;} 

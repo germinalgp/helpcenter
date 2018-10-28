@@ -38,7 +38,7 @@
 		}else if ($i == 7){
 			$mensaje = "ERROR ELIMINANDO:<br/>NO HA SELECCIONADO NINGUN ELEMENTO PARA ELIMINAR";
 		}else if ($i == 8){
-			$mensaje = "ERROR CREANDO CATEGORIA:<br/>NO HA SELECCIONADO LA INCIDENCIA A LA QUE SE VINCULA";
+			$mensaje = "ERROR CREANDO CATEGORIA:<br/>NO HA SELECCIONADO EL TIPO DE INCIDENCIA A LA QUE SE VINCULA";
 		}else if ($i == 9){
 			$mensaje = "ERROR CREANDO CATEGORIA:<br/>NO HA ESCRITO UN NOMBRE A LA CATEGORIA";
 		}else if ($i == 10){
@@ -71,6 +71,8 @@
 			$mensaje = "<font color=\"RED\"><b>ERROR:<b/> REITERAR SOBRE EL ID DE UNA REITERACION ANTERIOR (SIEMPRE HAY QUE REITERAR SOBRE LA INCIDENCIA ORIGEN).</font>";
 		}else if ($i == 29){
 			$mensaje = "<font color=\"RED\"><b>ERROR:<b/> ID SELECCIONADO NO EXISTE.</font>";
+		}else if ($i == 30){
+			$mensaje = "USUARIO HA SALIDO CON ÉXITO";
 		}else{
 						$errorNick = substr($i,0,1);
 						$errorPass = substr($i,1,1);

@@ -2,7 +2,7 @@
 require_once("../db/db.php");
 class logout_model{
     private $db;
-   
+    private $error;
  
     public function __construct(){
         $this->db=Conectar::connection();
@@ -20,7 +20,7 @@ class logout_model{
 				unset($_SESSION['level']);
 				unset($_SESSION['block']);
 			}
-			$this->error = 0;
+			$this->error = 30;
 			return $this->error;
 		}else{
 			$ahora = getdate(); //Obtiene un array con los datos de la fecha y hora actual
@@ -29,7 +29,7 @@ class logout_model{
 			$pagina = $_SERVER['PHP_SELF'];
 			$sql_insert = "INSERT INTO intrusos (IP,tipo,descripcion,fecha) values ('".$IP."',4,'".$pagina."','".$fecha."') ";
 			$this->db->query($sql_insert);
-			$this->error = 0;
+			$this->error = 99;
 			return $this->error;
 		}
 		

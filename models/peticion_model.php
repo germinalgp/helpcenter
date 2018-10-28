@@ -174,7 +174,7 @@ class peticion_model{
 			$pagina = $_SERVER['PHP_SELF'];
 			$sql_insert = "INSERT INTO intrusos (IP,tipo,descripcion,fecha) values ('".$IP."',4,'".$pagina."','".$fecha."') ";
 			$this->db->query($sql_insert);
-			$this->error = 1;
+			$this->error = 99;
 			return $this->error; 
 		}
 		

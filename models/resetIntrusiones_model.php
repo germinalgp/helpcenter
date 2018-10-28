@@ -9,41 +9,41 @@ class resetIntrusiones_model{
     }
     public function resetear(){
 		if ($_SESSION['level'] == 1){
-		$tipo = "";
-		$revisada = "";
-		$fechainicial = "";
-		$fechafinal = "";
-		
-		if ( isset ( $_GET['tipo'] ) ){
-			$tipo = $_GET['tipo'];
-		}
-		if ( isset ( $_GET['revisada'] ) ){
-			$revisada = $_GET['revisada'];
-		}	
-		if ( isset ( $_GET['fechainicial'] ) ){
-			$fechainicial = $_GET['fechainicial'];
-		}	
-		if ( isset ( $_GET['fechafinal'] ) ){
-			$fechafinal = $_GET['fechafinal'];
-		}			
-		
-		
+			$tipo = "";
+			$revisada = "";
+			$fechainicial = "";
+			$fechafinal = "";
+			
+			if ( isset ( $_GET['tipo'] ) ){
+				$tipo = $_GET['tipo'];
+			}
+			if ( isset ( $_GET['revisada'] ) ){
+				$revisada = $_GET['revisada'];
+			}	
+			if ( isset ( $_GET['fechainicial'] ) ){
+				$fechainicial = $_GET['fechainicial'];
+			}	
+			if ( isset ( $_GET['fechafinal'] ) ){
+				$fechafinal = $_GET['fechafinal'];
+			}			
+			
+			
 
-		if (($fechainicial=='') && ($fechafinal=='')){
-			$sql_update = "UPDATE intrusos SET revisado = 1 WHERE revisado = 0 AND tipo = ".$tipo."";
-			$this->db->query($sql_update);
-		}else if (($fechainicial<>'') && ($fechafinal=='')){
-			$sql_update = "UPDATE intrusos SET revisado = 1 WHERE revisado = 0 AND tipo = $tipo AND fecha >= '".$fechainicial."'";
-			$this->db->query($sql_update);
-		}else if (($fechainicial=='') && ($fechafinal<>'')){
-			$sql_update = "UPDATE intrusos SET revisado = 1 WHERE revisado = 0 AND tipo = $tipo AND fecha <= '".$fechafinal."'";
-			$this->db->query($sql_update);
-		}else{
-			$sql_update = "UPDATE intrusos SET revisado = 1 WHERE revisado = 0 AND tipo = $tipo AND fecha <= '".$fechafinal."' AND fecha >= '".$fechainicial."'";
-			$this->db->query($sql_update);
-		}
-		$this->intrusion = 0;
-		return $this->intrusion; 
+			if (($fechainicial=='') && ($fechafinal=='')){
+				$sql_update = "UPDATE intrusos SET revisado = 1 WHERE revisado = 0 AND tipo = ".$tipo."";
+				$this->db->query($sql_update);
+			}else if (($fechainicial<>'') && ($fechafinal=='')){
+				$sql_update = "UPDATE intrusos SET revisado = 1 WHERE revisado = 0 AND tipo = $tipo AND fecha >= '".$fechainicial."'";
+				$this->db->query($sql_update);
+			}else if (($fechainicial=='') && ($fechafinal<>'')){
+				$sql_update = "UPDATE intrusos SET revisado = 1 WHERE revisado = 0 AND tipo = $tipo AND fecha <= '".$fechafinal."'";
+				$this->db->query($sql_update);
+			}else{
+				$sql_update = "UPDATE intrusos SET revisado = 1 WHERE revisado = 0 AND tipo = $tipo AND fecha <= '".$fechafinal."' AND fecha >= '".$fechainicial."'";
+				$this->db->query($sql_update);
+			}
+			$this->intrusion = 0;
+			return $this->intrusion; 
 		
 		}else{
 			$ahora = getdate(); //Obtiene un array con los datos de la fecha y hora actual

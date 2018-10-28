@@ -3,9 +3,14 @@ date_default_timezone_set('Europe/Madrid');
 //Llamada al modelo
 require_once("../models/download_model.php");
 $download=new download_model();
-$download->download();
- 
+$mensaje = $download->download();
+
 //Llamada a la vista
-require_once("../respuesta.php");
+if ($mensaje == 99){
+	$intrusion = 1;
+	require_once("../index.php");
+}else{	 
+	require_once("../respuesta.php");
+}
 
 ?>

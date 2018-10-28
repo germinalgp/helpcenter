@@ -44,7 +44,7 @@
 
 
 	if ($_SESSION['level'] == 1 || $_SESSION['level'] == 2 || $_SESSION['level'] == 3 || $_SESSION['level'] == 4 || $_SESSION['level'] == 9) {
-	if ( !isset ( $_POST['enviar_peticion']) || $_POST['enviar_peticion'] != 1){
+
 		echo '<html>
 			<head>
 					<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -69,6 +69,9 @@
 			  //Si se ha logueado, mostramos el nick y la opcion de desloguearse
 			  //Este sera el menu que saldria a la gente que esta logueada, se puede modificar y aadir cosas
 		
+		if (strpos($_SERVER['PHP_SELF'],'controller') != false){
+			$ruta = '../';
+		}
 		
 		$mensaje = "";
 		if ( isset ( $_GET['mensaje'] ) ){
@@ -78,11 +81,8 @@
 		
 		if ($_SESSION['level'] == 9){   
 			
-			
 			menu_ext(0,0,0);
-			
-			
-			
+
 			$sql = "SELECT p.ISSUE_TYPE, c.DESCRIPCION, p.COMPETENCIA, e.STATE, p.USER_OPEN, p.TELEPHONE, p.EMAIL, p.FECHA_COMPRA, p.ID_ANTERIOR, p.N_SERIE FROM peticiones p, tipo_estados e, tipos_combos c WHERE USER_OPEN = ".$_SESSION['usuario']." AND ID = ".$_POST['ID']." AND p.ISSUE_TYPE = c.ID_COMBO AND p.STATE = e.ID_STATE";
 			
 			$resultado=mysqli_query($connection, $sql);
@@ -197,15 +197,9 @@
 				if ($row[3]!='CERRADA'){//SI ESTA ABIERTA O EN TRAMITE
 					//BLOQUEAMOS
 					mysqli_query($connection, "UPDATE peticiones SET BLOCK = 1 WHERE ID = ".$_POST['ID'].""); //BLOQUEAMOS
-					
-					if (strpos($_SERVER['PHP_SELF'],'controller') != false){
-						echo '<form method="post" action="c_cambiar_competencia.php">';
-					}else{
-						echo '<form method="post" action="controller/c_cambiar_competencia.php">';
-					}
-					
-					
-				echo '<input type="hidden" name="ID" value="'.$_POST['ID'].'" size="1"></input>&nbsp;Competencia: <b>'.$row[2].'</b>
+
+				echo '<form method="post" action="'.$ruta.'controller/c_cambiar_competencia.php">
+					<input type="hidden" name="ID" value="'.$_POST['ID'].'" size="1"></input>&nbsp;Competencia: <b>'.$row[2].'</b>
 					 <select class="competencia" name="competencia" id="competencia">';
 						$tabla_competencias = mysqli_query ($connection, "SELECT DISTINCT TIPO FROM tipos_combos WHERE TIPO <> 'CATEGORIA' AND TIPO <> 'PRODUCTO'");
 						while ($row_tabla_competencias = mysqli_fetch_array($tabla_competencias))
@@ -225,7 +219,7 @@
 					
 	  
 				if (($row[3]=='CERRADA')&&($_SESSION['level'] == 3 || $_SESSION['level'] == 2 || $_SESSION['level'] == 1)){ //CIERTOS NIVELES PUEDEN MODIFICAR EL ESTADO
-					echo '<form method="post" action="controller/c_cambiar_estado.php">
+					echo '<form method="post" action="'.$ruta.'controller/c_cambiar_estado.php">
 					<input type="hidden" name="ID" value="'.$_POST['ID'].'" size="1"></input>&nbsp;Estado: <span style="background-color: #FF0000"><b>CERRADA</b></span>
 					<select class="estado" name="estado" id="estado">
 						<option class="estado_verde" value="0">ABIERTA</option>
@@ -294,7 +288,7 @@
 							<td>
 								<input type="text" name="id_anterior" value="'.$row[8].'" disabled="disabled"></input>
 							</td>
-							<form method="post" action="respuesta.php">
+							<form method="post" action="'.$ruta.'controller/c_respuesta.php">
 							<td>
 									<input type="hidden" name="buscarXid" value="1" size="1"></input>
 									<input type="hidden" name="ID" value="'.$row[8].'"></input>
@@ -320,7 +314,7 @@
 				   echo '<form id="formLarge"><fieldset>
 						   <legend> Ficheros adjuntos</legend>';
 						   for ($i = 0; $i < count($ficheros); $i++) {
-							  echo "<a href='controller/c_download.php?ID=".$_POST['ID']."&download_file=".urlencode($ficheros[$i]["name"])."' target='_new'>".$ficheros[$i]["name"]."</a>&nbsp;(".number_format($ficheros[$i]["size"]/(1024*1024), 2, '.', ' ')."&nbsp;Mb)<br/>\n";
+							  echo "<a href='".$ruta."controller/c_download.php?ID=".$_POST['ID']."&download_file=".urlencode($ficheros[$i]["name"])."' target='_new'>".$ficheros[$i]["name"]."</a>&nbsp;(".number_format($ficheros[$i]["size"]/(1024*1024), 2, '.', ' ')."&nbsp;Mb)<br/>\n";
 						   }
 
 						
@@ -343,13 +337,10 @@
 				
 				
 				if (($row[3]!='CERRADA') && ( !isset ( $_POST['buscarXid']) || $_POST['buscarXid'] != 1)){ //SI NO ESTA CERRADA Y NO HEMOS BUSCADO POR ID
-					if (strpos($_SERVER['PHP_SELF'],'controller') != false){
-						echo '<form id="formLarge" method="post" action="../respuesta.php">';
-					}else{
-						echo '<form id="formLarge" method="post" action="respuesta.php">';
-					}
 					
-						echo '<fieldset>
+					
+						echo '<form id="formLarge" method="post" action="'.$ruta.'controller/c_respuesta.php">
+								<fieldset>
 								<legend>Nuevo comentario</legend>
 								<input type="hidden" name="enviar_peticion" value="1" size="1"></input>
 								<input type="hidden" name="ID" value="'.$_POST['ID'].'" size="1"></input>
@@ -380,7 +371,7 @@
 				echo '
 				<table>
 				
-				<form name="form_seguimiento" action="controller/c_tracing.php" method="post">
+				<form name="form_seguimiento" action="'.$ruta.'controller/c_tracing.php" method="post">
 				<input type="hidden" name="ID" value="'.$_POST['ID'].'" size="1">
 				<tr>
 					<td colspan="2"></td>
@@ -415,12 +406,9 @@
 							<input class="submit" name="submit" type="submit" id="submit" value="No disponible" disabled="disabled"/>
 						</form>';
 					}else{
-						if (strpos($_SERVER['PHP_SELF'],'/helpcenter/controller/') != false) {
-							echo '<form method="post" action="../ver_historial.php" target="_blank">';
-						}else{
-							echo '<form method="post" action="ver_historial.php" target="_blank">';
-						}
-						echo '<input type="hidden" name="ID" value="'.$_POST['ID'].'" size="1">
+						
+						echo '<form method="post" action="'.$ruta.'ver_historial.php" target="_blank">
+						<input type="hidden" name="ID" value="'.$_POST['ID'].'" size="1">
 						<input class="submit" name="submit" type="submit" id="submit" value="Ver..." />
 						</form>';
 					}
@@ -441,7 +429,7 @@
 				</table>';
 				
 				
-				echo '<form method="post" id="openform" action="respuesta.php">
+				echo '<form method="post" id="openform" action="'.$ruta.'controller/c_respuesta.php">
 				 <input type="hidden" name="ID" id="openid" value="'.$_POST['ID'].'">		
 				</form>
 							<div id="demo1" style="width:600px"></div>
@@ -464,105 +452,7 @@
 			
 		
 		echo '</body></html>';
-	}else{ //SI SE MANDA UN COMENTARIO DESDE LA MISMA PAGINA respuesta.php
-		// Obtener la fecha de realizacion de la peticion de incidencia
-		$fecha_peticion = getdate ();
-		$fecha_peticion = $fecha_peticion['year']."-".$fecha_peticion['mon']."-".$fecha_peticion['mday']." ".$fecha_peticion['hours'].":".$fecha_peticion['minutes'].":".$fecha_peticion['seconds'];
-		
-		/**
-		 * TIPOS DE COMENTARIOS
-		 * 0- ESCRITURA DE TEXTO
-		 * 1- CAMBIO ESTADO: ABIERTA
-		 * 2- CAMBIO ESTADO: EN TRAMITE
-		 * 3- CAMBIO ESTADO: CERRADA
-		 * 4- CAMBIO COMPETENCIA: COORDINACION
-		 * 5- CAMBIO COMPETENCIA: ADMINISTRACION
-		 * 6- CAMBIO COMPETENCIA: TECNICA
-		 */
-		
-		$comentario = "";
-		if ( isset ( $_POST['ck_comentario'] ) ){
-			$comentario = $_POST['ck_comentario'];
-		}
-		
-		
-		
-		if ($comentario==''){ //Si el comentario esta en blanco pero lo ponemos a tramite o lo cerramos 
-			
-			$estado_actual = mysqli_query ($connection, "SELECT STATE FROM peticiones WHERE ID = ".$_POST['ID']."");
-			$row_estado_actual = mysqli_fetch_row ($estado_actual); //TENEMOS EL ESTADO ACTUAL		
-			
-			//COMPROBAMOS SI HEMOS CAMBIADO DE ESTADO
-			if ($row_estado_actual[0]!=$_POST['ESTADO']){ //SE HA CAMBIADO DE ESTADO
-				//ESTAMOS HACIENDO UN CAMBIO DE ESTADO
-				$nuevo_estado = $_POST['ESTADO'];
-				switch ($nuevo_estado){
-					case 0 : $tipo = 1;
-							//$comentario = "CAMBIO ESTADO: ABIERTA";
-						break;
-					case 1 : $tipo = 2;
-							 //$comentario = "CAMBIO ESTADO: EN TRAMITE";
-						break;
-					case 2 : $tipo = 3; 
-							 //$comentario = "CAMBIO ESTADO: CERRADA";
-						break;
-				}
-				$fecha_peticion = getdate ();
-				$fecha_peticion = $fecha_peticion['year']."-".$fecha_peticion['mon']."-".$fecha_peticion['mday']." ".$fecha_peticion['hours'].":".$fecha_peticion['minutes'].":".$fecha_peticion['seconds'];
-				if ($nuevo_estado == 2){ //SI CERRAMOS LA INCIDENCIA
-					mysqli_query($connection, "UPDATE peticiones SET STATE = ".$_POST['ESTADO'].", DATE_CLOSE = '".$fecha_peticion."', USER_CLOSE = '".$_SESSION['usuario']."', LAST_USER_MODIFY = '".$_SESSION['usuario']."', LAST_DATE_MODIFY = '".$fecha_peticion."' WHERE ID = ".$_POST['ID'].""); //Ponemos Estado al nuevo estado	
-				}else{
-					mysqli_query($connection, "UPDATE peticiones SET STATE = ".$_POST['ESTADO'].", LAST_USER_MODIFY = '".$_SESSION['usuario']."', LAST_DATE_MODIFY = '".$fecha_peticion."' WHERE ID = ".$_POST['ID'].""); //Ponemos Estado al nuevo estado
-				}
-				mysqli_query ($connection, "INSERT INTO historial (id_issue, author, tipo, date) values ('".$_POST['ID']."','".$_SESSION['usuario']."','".$tipo."','".$fecha_peticion."')");
-				Header("Location: index.php?desbloquear=".$_POST['ID']."");	
-			}else{
-				Header("Location: index.php?desbloquear=".$_POST['ID']."");	
-			}
-			
-		}else { //SI HA ESCRITO ALGO
-			$estado_actual = mysqli_query ($connection, "SELECT STATE FROM peticiones WHERE ID = ".$_POST['ID']."");
-			$row_estado_actual = mysqli_fetch_row ($estado_actual); //TENEMOS EL ESTADO ACTUAL	
-			//COMPROBAMOS SI HEMOS CAMBIADO DE ESTADO
-			if ($row_estado_actual[0]!=$_POST['ESTADO']){ //SE HA CAMBIADO DE ESTADO
-				//ESTAMOS HACIENDO UN CAMBIO DE ESTADO
-				$nuevo_estado = $_POST['ESTADO'];
-				switch ($nuevo_estado){
-					case 0 : $tipo = 1;
-							 //$comentario = "CAMBIO ESTADO: ABIERTA";
-						break;
-					case 1 : $tipo = 2;
-							 //$comentario = "CAMBIO ESTADO: EN TRAMITE";
-						break;
-					case 2 : $tipo = 3; 
-							 //$comentario = "CAMBIO ESTADO: CERRADA";
-						break;
-				}
-				$fecha_peticion = getdate ();
-				$fecha_peticion = $fecha_peticion['year']."-".$fecha_peticion['mon']."-".$fecha_peticion['mday']." ".$fecha_peticion['hours'].":".$fecha_peticion['minutes'].":".$fecha_peticion['seconds'];
-				if ($nuevo_estado == 2){ //SI CERRAMOS LA INCIDENCIA
-					mysqli_query($connection, "UPDATE peticiones SET STATE = ".$_POST['ESTADO'].", DATE_CLOSE = '".$fecha_peticion."', USER_CLOSE = '".$_SESSION['usuario']."', LAST_USER_MODIFY = '".$_SESSION['usuario']."', LAST_DATE_MODIFY = '".$fecha_peticion."' WHERE ID = ".$_POST['ID'].""); //Ponemos Estado al nuevo estado	
-				}else{
-					mysqli_query($connection, "UPDATE peticiones SET STATE = ".$_POST['ESTADO'].", LAST_USER_MODIFY = '".$_SESSION['usuario']."', LAST_DATE_MODIFY = '".$fecha_peticion."' WHERE ID = ".$_POST['ID'].""); //Ponemos Estado al nuevo estado
-				}
-				mysqli_query ($connection, "INSERT INTO comentarios (id_issue, author, comments, date) values ('".$_POST['ID']."','".$_SESSION['usuario']."','".$comentario."','".$fecha_peticion."')");
-				mysqli_query ($connection, "INSERT INTO historial (id_issue, author, tipo, date) values ('".$_POST['ID']."','".$_SESSION['usuario']."','".$tipo."','".$fecha_peticion."')");
-				Header("Location: index.php?desbloquear=$_POST[ID]");	
-			}else{
-				$fecha_peticion = getdate ();
-				$fecha_peticion = $fecha_peticion['year']."-".$fecha_peticion['mon']."-".$fecha_peticion['mday']." ".$fecha_peticion['hours'].":".$fecha_peticion['minutes'].":".$fecha_peticion['seconds'];
-				if ($nuevo_estado == 2){ //SI CERRAMOS LA INCIDENCIA
-					mysqli_query($connection, "UPDATE peticiones SET STATE = ".$_POST['ESTADO'].", DATE_CLOSE = '".$fecha_peticion."', USER_CLOSE = '".$_SESSION['usuario']."', LAST_USER_MODIFY = '".$_SESSION['usuario']."', LAST_DATE_MODIFY = '".$fecha_peticion."' WHERE ID = ".$_POST['ID'].""); //Ponemos Estado al nuevo estado	
-				}else{
-					mysqli_query($connection, "UPDATE peticiones SET STATE = ".$_POST['ESTADO'].", LAST_USER_MODIFY = '".$_SESSION['usuario']."', LAST_DATE_MODIFY = '".$fecha_peticion."' WHERE ID = ".$_POST['ID'].""); //Ponemos Estado al nuevo estado
-				}
-				mysqli_query ($connection, "INSERT INTO comentarios (id_issue, author, comments, date) values ('".$_POST['ID']."','".$_SESSION['usuario']."','".$comentario."','".$fecha_peticion."')");
-				Header("Location: index.php?desbloquear=".$_POST['ID']."");	
-				
-			}
-		}	
-
-	}
+	
 	}else{
 		$ahora = getdate(); //Obtiene un array con los datos de la fecha y hora actual
 		$fecha = $ahora["year"]."-".$ahora["mon"]."-".$ahora["mday"]." ".$ahora["hours"].":".$ahora["minutes"].":".$ahora["seconds"]; //Obtiene el formato adecuado de fecha hora para insertar en la BBDD

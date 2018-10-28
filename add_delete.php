@@ -9,17 +9,17 @@
 	include('menu.php');
 
 	if ($_SESSION['level'] == 1){
-
-
+		if (strpos($_SERVER['PHP_SELF'],'controller') != false){
+				$ruta = '../';
+		}
+		
 		
 			echo '<html>
 			  <head>
 					<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 					<title>HELPCENTER</title>
-					<link href="styles.css" rel="stylesheet" type="text/css" />
-					<link href="../styles.css" rel="stylesheet" type="text/css" />
-					<script type="text/javascript" src="tinybox.js"></script>
-					<script type="text/javascript" src="../tinybox.js"></script>
+					<link href="'.$ruta.'styles.css" rel="stylesheet" type="text/css" />
+					<script type="text/javascript" src="'.$ruta.'tinybox.js"></script>
 					<script type="text/javascript">
 						function Valida (formulario, opc, confirmar){
 							if (confirmar == 1){
@@ -35,15 +35,6 @@
 					</script>		
 			 </head>';
 
-		   $mensaje = "";
-			
-			if ( isset ( $_GET['mensaje'] ) ){
-				$mensaje = $_GET['mensaje'];
-			}
-
-			if (strpos($_SERVER['PHP_SELF'],'controller') != false){
-				$ruta = '../';
-			}
 
 			if ($mensaje != ''){
 				echo '<body style="font: 13px/20px sans-serif;" link="#0000ff" vlink="#0000ff" onload="TINY.box.show({url:\''.$ruta.'message.php?mensaje='.$mensaje.'\',width:320,height:100})">';
@@ -54,10 +45,11 @@
 		
 			menu_int(0, 1, 0, 0, 0, 0);
 			
-			$combo_category_type ="";
+			
 			if ( isset ( $_POST['combo_category_type'] ) ){
 				$combo_category_type = $_POST['combo_category_type'];
 			}
+			
 			
 			
 			//INICIO PRIMER FORMULARIO ---- DELETE CATEGORIA PRODUCTO
@@ -70,6 +62,7 @@
 					echo '<label id="label2" for="combo_category_type">
 							<select name="combo_category_type" tabindex="5" id="combo_category_type" onchange="this.form.submit();return false;">';
 							$tabla_categorias = mysqli_query($connection, "SELECT id_combo, descripcion FROM tipos_combos WHERE tipo = 'CATEGORIA' ORDER BY descripcion ASC"); //Sentencia para buscarlo en la base de datos
+							echo '<option value = "-1" selected="selected">Elija una opci&#243;n:</option>';
 							while($row_tabla_categorias=mysqli_fetch_array($tabla_categorias))
 							{	
 								if ($combo_category_type==$row_tabla_categorias[0]){

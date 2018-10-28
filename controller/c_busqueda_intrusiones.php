@@ -5,7 +5,13 @@ require_once("../models/busqueda_intrusiones_model.php");
 $busqueda=new busqueda_intrusiones_model();
 $datos=$busqueda->busqueda();
 
-//Llamada a la vista
-require_once("../intrusos.php");
+if ($datos == 99){
+	$intrusion = 1;
+	require_once("../index.php");
+}else{
+	//Llamada a la vista
+	require_once("../intrusos.php");
+}
+
 
 ?>

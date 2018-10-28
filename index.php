@@ -22,33 +22,23 @@
 					<script type="text/javascript" src="tinybox.js"></script>
 					<script type="text/javascript" src="../tinybox.js"></script>
 			</head>';
-			
-		
-			if ( isset ( $_GET['mensaje'] ) ){
-				$mensaje = $_GET['mensaje'];
-			}	
 
 			if (strpos($_SERVER['PHP_SELF'],'controller') != false){
 				$ruta = '../';
 				$rutatiny = "1";
 			}
 			
-			
-			if (!is_null($mensaje)){
+			if (!is_null($mensaje) && $intrusion != 1){
 				echo '<body link="#0000ff" vlink="#0000ff" onload="TINY.box.show({url:\''.$ruta.'message.php?mensaje='.$mensaje.'\',width:320,height:210})">';
 			}else{
-				
 				echo '<body link="#0000ff" vlink="#0000ff">';
 			}
 			
-			
-			
-			
-			
+
 			echo'<blockquote>
 			<table>
 				<tr>
-					<td><input onclick="TINY.box.show({url:\''.$ruta.'inicio.php\',width:320,height:210})" class = "botones" type="button" value = "Entrar"></input></td>
+					<td><input onclick="TINY.box.show({url:\''.$ruta.'inicio.php?rutatiny='.$rutatiny.'\',width:320,height:210})" class = "botones" type="button" value = "Entrar"></input></td>
 					<td><input onclick="TINY.box.show({url:\''.$ruta.'registrar.php?rutatiny='.$rutatiny.'\',width:350,height:340})" class = "botones" type="button" value = "Registrar"></input></td>
 				<tr>
 			</table>
@@ -122,7 +112,7 @@
 				$intrusion = $_GET['intrusion'];
 			}	
 			
-			if ($intrusion == 1 || $mensaje == 1){
+			if ($intrusion == 1){
 				$IP = $_SERVER['REMOTE_ADDR'];
 				echo '<font size="2" color="red">Intento de intrusi&#243n sin logueo desde la IP <b>'.$IP.'</b> ha sido grabada</font>';
 			}	
@@ -230,9 +220,7 @@
 					</tr>';
 					while ($datos=mysqli_fetch_array($res_abiertas))
 						{	
-							echo '
-							<form id="searchform" method="post" action="respuesta.php">
-							<tr class="'.$colorFila.'">
+							echo '<tr class="'.$colorFila.'">
 								<td align="center">'.$datos["ID"].'</td>
 								<td align="center">'.$datos["DESCRIPCION"].'</td>
 								<td align="center">'.$datos["COMPETENCIA"].'</td>		
@@ -342,10 +330,10 @@
 			}
 			if ($orden == ""){
 				$sql_cerradas="SELECT TIME_TO_SEC(TIMEDIFF(NOW(),p.DATE)) AS PLAZO, p.ID, p.USER_OPEN, p.ISSUE_TYPE, c.DESCRIPCION, p.COMPETENCIA, p.STATE, p.BLOCK, p.DATE, p.LAST_USER_MODIFY, p.LAST_DATE_MODIFY FROM peticiones p, tipos_combos c WHERE p.STATE = 2 AND ".$sql_filtro." AND p.ISSUE_TYPE = c.ID_COMBO ORDER BY p.DATE DESC LIMIT 20";
-				$sql_abiertas="SELECT TIME_TO_SEC(TIMEDIFF(NOW(),p.DATE)) AS PLAZO, p.ID, p.USER_OPEN, p.ISSUE_TYPE, c.DESCRIPCION, p.COMPETENCIA, p.STATE, p.BLOCK, p.DATE, p.LAST_USER_MODIFY, p.LAST_DATE_MODIFY FROM peticiones p, tipos_combos c WHERE (p.STATE = 0 OR p.STATE = 1) AND ".$sql_filtro." AND p.ISSUE_TYPE = c.ID_COMBO ORDER BY p.DATE DESC";
+				$sql_abiertas="SELECT TIME_TO_SEC(TIMEDIFF(NOW(),p.DATE)) AS PLAZO, p.ID, p.USER_OPEN, p.ISSUE_TYPE, c.DESCRIPCION, p.COMPETENCIA, p.STATE, p.BLOCK, p.DATE, p.LAST_USER_MODIFY, p.LAST_DATE_MODIFY, p.TRACING FROM peticiones p, tipos_combos c WHERE (p.STATE = 0 OR p.STATE = 1) AND ".$sql_filtro." AND p.ISSUE_TYPE = c.ID_COMBO ORDER BY p.DATE DESC";
 			}else{
 				$sql_cerradas="SELECT TIME_TO_SEC(TIMEDIFF(NOW(),p.DATE)) AS PLAZO, p.ID, p.USER_OPEN, p.ISSUE_TYPE, c.DESCRIPCION, p.COMPETENCIA, p.STATE, p.BLOCK, p.DATE, p.LAST_USER_MODIFY, p.LAST_DATE_MODIFY FROM peticiones p, tipos_combos c WHERE p.STATE = 2 AND ".$sql_filtro." AND p.ISSUE_TYPE = c.ID_COMBO ".$orden.", p.DATE DESC LIMIT 20";
-				$sql_abiertas="SELECT TIME_TO_SEC(TIMEDIFF(NOW(),p.DATE)) AS PLAZO, p.ID, p.USER_OPEN, p.ISSUE_TYPE, c.DESCRIPCION, p.COMPETENCIA, p.STATE, p.BLOCK, p.DATE, p.LAST_USER_MODIFY, p.LAST_DATE_MODIFY FROM peticiones p, tipos_combos c WHERE (p.STATE = 0 OR p.STATE = 1) AND ".$sql_filtro." AND p.ISSUE_TYPE = c.ID_COMBO ".$orden.", p.DATE DESC";
+				$sql_abiertas="SELECT TIME_TO_SEC(TIMEDIFF(NOW(),p.DATE)) AS PLAZO, p.ID, p.USER_OPEN, p.ISSUE_TYPE, c.DESCRIPCION, p.COMPETENCIA, p.STATE, p.BLOCK, p.DATE, p.LAST_USER_MODIFY, p.LAST_DATE_MODIFY, p.TRACING FROM peticiones p, tipos_combos c WHERE (p.STATE = 0 OR p.STATE = 1) AND ".$sql_filtro." AND p.ISSUE_TYPE = c.ID_COMBO ".$orden.", p.DATE DESC";
 			}
 			$res_cerradas=mysqli_query($connection, $sql_cerradas);
 			$res_abiertas=mysqli_query($connection, $sql_abiertas);
@@ -396,9 +384,13 @@
 					while ($datos=mysqli_fetch_array($res_abiertas))
 						{	
 							echo '
-							<form id="searchform" method="post" action="'.$ruta.'respuesta.php">
-							<tr class="'.$colorFila.'">
-								<td align="center">'.$datos["ID"].'</td>
+							<form id="searchform" method="post" action="'.$ruta.'respuesta.php">';
+							if ($datos["TRACING"]==1){
+								echo '<tr class="filaTracing">';
+							}else {
+								echo '<tr class="'.$colorFila.'">';
+							}
+							echo'<td align="center">'.$datos["ID"].'</td>
 								<td align="center">'.$datos["USER_OPEN"].'</td>
 								<td align="center">'.$datos["DESCRIPCION"].'</td>
 								<td align="center">'.$datos["COMPETENCIA"].'</td>		

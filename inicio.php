@@ -1,11 +1,16 @@
 <?php
+
+if ( $_GET['rutatiny'] == "1" ){
+	$ruta = '../';
+}	
+
 echo '<html>
 		<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-		<link href="styles.css" rel="stylesheet" type="text/css" />
+		<link href="'.$ruta.'styles.css" rel="stylesheet" type="text/css" />
 		</head>
 	    <body bgcolor = "#B9D6ED">
-		<form id="loginform" method="post" action="controller/c_autenticar.php">
+		<form id="loginform" method="post" action="'.$ruta.'controller/c_autenticar.php">
 			<fieldset>
 			<legend>Inicio de sesion</legend>
 				<p>Por favor, introduzca nombre de usuario y contrase&#241;a parar entrar en Helpcenter</p>

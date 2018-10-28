@@ -5,7 +5,10 @@ require_once("../models/tracing_model.php");
 $tracing=new tracing_model();
 $model=$tracing->activar_tracing();
  
-//Llamada a la vista
+if ($model == 99){
+	$intrusion = 1;	
+}
+//LLamada a la vista
 require_once("../index.php");
 
 ?>
