@@ -211,6 +211,7 @@
 					</tr>';
 					while ($datos=mysqli_fetch_array($res_abiertas))
 						{	
+							echo '<form id="searchform" method="post" action="'.$ruta.'respuesta.php">';
 							echo '<tr class="'.$colorFila.'">
 								<td align="center">'.$datos["ID"].'</td>
 								<td align="center">'.$datos["DESCRIPCION"].'</td>
@@ -218,9 +219,9 @@
 								<td align="center">'.$datos["DATE"].'</td>
 								<td align="center">';
 									switch ($datos["STATE"]){
-										case 0:	echo '<img title="INCIDENCIA ABIERTA" height="25" src="images/abierta_ico.gif" alt="NO IMAGEN"></img>';
+										case 0:	echo '<img title="INCIDENCIA ABIERTA" height="25" src="'.$ruta.'images/abierta_ico.gif" alt="NO IMAGEN"></img>';
 												break;
-										case 1: echo '<img title="INCIDENCIA EN TRAMITE" height="25" src="images/tramite_ico.gif" alt="NO IMAGEN"></img>';
+										case 1: echo '<img title="INCIDENCIA EN TRAMITE" height="25" src="'.$ruta.'images/tramite_ico.gif" alt="NO IMAGEN"></img>';
 												break;
 									}
 								echo '</td>								
@@ -256,13 +257,13 @@
 					while ($datos=mysqli_fetch_array($res_cerradas))
 						{	
 							echo '
-							<form id="searchform" method="post" action="respuesta.php">
+							<form id="searchform" method="post" action="'.$ruta.'respuesta.php">
 							<tr class="'.$colorFila.'">
 								<td align="center">'.$datos["ID"].'</td>
 								<td align="center">'.$datos["DESCRIPCION"].'</td>
 								<td align="center">'.$datos["COMPETENCIA"].'</td>		
 								<td align="center">'.$datos["DATE"].'</td>
-								<td align="center"><img title="INCIDENCIA CERRADA" height="25" src="images/cerrada_ico.gif" alt="NO FOTO"></img></td>					
+								<td align="center"><img title="INCIDENCIA CERRADA" height="25" src="'.$ruta.'images/cerrada_ico.gif" alt="NO FOTO"></img></td>					
 								<td align="center" valign="middle">									
 									<input type="hidden" name="ID" value="'.$datos["ID"].'"></input>
 									<input name="Submit" type="submit" id="submit" tabindex="13" value="ABRIR..."></input>										
@@ -277,7 +278,7 @@
 								$colorFila = "filaBlanca";
 							}
 						}
-					echo '</table><br/><a href="busqueda.php" title="BUSCAR"><img border="0" src="images/ver_mas.gif" alt="NO IMAGEN"></img></a>';
+					echo '</table><br/><a href="'.$ruta.'busqueda.php" title="BUSCAR"><img border="0" src="'.$ruta.'images/ver_mas.gif" alt="NO IMAGEN"></img></a>';
 					
 		}else if ($_SESSION['level'] == 4 || $_SESSION['level'] == 3 || $_SESSION['level'] == 2 || $_SESSION['level'] == 1){   
 			//POR SI ES NECESARIO DESBLOQUEAR

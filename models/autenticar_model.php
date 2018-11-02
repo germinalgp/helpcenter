@@ -12,6 +12,12 @@ class autenticar_model{
 		
 				if (($_POST['nick'] == '') and ($_POST['pass'] == '')) //Comprobamos que las variables enviadas por el form de index.php tienen contenido
 				{
+					$ahora = getdate(); //Obtiene un array con los datos de la fecha y hora actual
+					$fecha = $ahora["year"]."-".$ahora["mon"]."-".$ahora["mday"]." ".$ahora["hours"].":".$ahora["minutes"].":".$ahora["seconds"]; //Obtiene el formato adecuado de fecha hora para insertar en la BBDD
+					$IP = $_SERVER['REMOTE_ADDR'];
+					$pagina = $_SERVER['PHP_SELF'];
+					$sql_insert = "INSERT INTO intrusos (IP,tipo,descripcion,fecha) values ('".$IP."',4,'".$pagina."','".$fecha."') ";
+					$this->db->query($sql_insert);
 					$this->error = 98; //VARIABLES VACIAS
 					return $this->error;
 				}

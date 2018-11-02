@@ -8,10 +8,6 @@ $error = $autenticacion->autenticar();
 //Llamada a la vista 
 if ($error == 1){
 	require_once("../index.php");
-}
-else if ($error == 99){
-	$intrusion = 1;
-	require_once("../index.php");
 }else{
 	$intrusion = $error;
 	require_once("../index.php");
