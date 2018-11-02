@@ -28,7 +28,7 @@
 				$rutatiny = "1";
 			}
 			
-			if (!is_null($mensaje) && $intrusion != 1){
+			if (!is_null($mensaje) && empty($intrusion)){
 				echo '<body link="#0000ff" vlink="#0000ff" onload="TINY.box.show({url:\''.$ruta.'message.php?mensaje='.$mensaje.'\',width:320,height:210})">';
 			}else{
 				echo '<body link="#0000ff" vlink="#0000ff">';
@@ -85,13 +85,9 @@
 			
 			</blockquote>';
 			
-			$intentos = "";
+
 			
-			$intrusion_n4 = "";
-			
-			if ( isset ( $_GET['intentos'] ) ){
-				$intentos = $_GET['intentos'];
-			}
+			$intentos = substr($intrusion, 2);
 			
 			if ($intentos == 1) 
 					{
@@ -108,24 +104,19 @@
 				
 			
 			
-			if ( isset ( $_GET['intrusion'] ) ){
-				$intrusion = $_GET['intrusion'];
-			}	
-			
 			if ($intrusion == 1){
 				$IP = $_SERVER['REMOTE_ADDR'];
 				echo '<font size="2" color="red">Intento de intrusi&#243n sin logueo desde la IP <b>'.$IP.'</b> ha sido grabada</font>';
-			}	
-			
-			if ( isset ( $_GET['login_fail_N4'] ) ){
-				$intrusion_n4 = $_GET['login_fail_N4'];
-			}	
-			if ($intrusion_n4 == 1){
+			}else if ($intrusion == 98){
+				echo '<font size="2" color="red">No ha introducido usuario y contrase&#241;a</font>';
+			}else if ($intrusion == 97){
+				echo '<font size="2" color="red">Usuario introducido no v&#225;lido</font>';
+			}else if ($intrusion == 96){
 				$IP = $_SERVER['REMOTE_ADDR'];
-				echo '<font size="2" color="red">Pass incorrecto...la IP <b>'.$IP.'</b> ha sido grabada</font>';
-				
-			}else if ($intrusion_n4 == 2){
-				echo '<font size="2" color="red">Servidor desconectado...</font>';
+				echo '<font size="2" color="red">No existe el usuario...la IP <b>'.$IP.'</b> ha sido grabada</font>';
+			}else if ($intrusion == 94){
+				$IP = $_SERVER['REMOTE_ADDR'];
+				echo '<font size="2" color="red">CUENTA BLOQUEADA...la IP <b>'.$IP.'</b> ha sido grabada</font>';
 			}
 			
 			echo '</body>
