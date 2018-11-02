@@ -150,7 +150,7 @@
 	echo '</table>';
 				
 		$colorFila="filaBlanca";
-		$sql_delete="SELECT nick, nombre, email, telephone, fecha FROM users WHERE nick NOT LIKE '".$_SESSION['usuario']."' ORDER BY fecha ASC";
+		$sql_delete="SELECT nick, nombre, email, telephone, fecha FROM users WHERE nick NOT LIKE '".$_SESSION['usuario']."' ORDER BY nick ASC";
 		$resultado_delete=mysqli_query($connection, $sql_delete);
 				
 		//MOSTRAR USUARIOS

@@ -121,7 +121,7 @@ class registro_model{
 						$ahora = getdate(); //Obtiene un array con los datos de la fecha y hora actual
 						$fecha = $ahora["year"]."-".$ahora["mon"]."-".$ahora["mday"]." ".$ahora["hours"].":".$ahora["minutes"].":".$ahora["seconds"]; //Obtiene el formato adecuado de fecha hora para insertar en la BBDD
 						//Introducimos el nuevo registro en la tabla users
-						$sql_insert = "INSERT INTO users (nick,pass,nombre,fecha,level,departamento, registrador, reseteador, active) values ('".$user."','".$pass."','".$nombre."','".$fecha."','".$level."','".$departamento."','".$_SESSION['usuario']."','', '1') ";
+						$sql_insert = "INSERT INTO users (nick,pass,nombre,email, telephone,fecha,level,departamento, registrador, reseteador, active) values ('".$user."','".$pass."','".$nombre."','".$email."','".$telephone."','".$fecha."','".$level."','".$departamento."','".$_SESSION['usuario']."','', '1') ";
 						$this->db->query($sql_insert);
 					}
 

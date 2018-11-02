@@ -251,9 +251,10 @@
 							<td colspan = "5"><center><h2>OTRAS ESTADISTICAS</h2></center></td>
 						</tr>
 						<tr>
-							<td class = "morestats"><a href="" title="ESTADISTICA POR XXXX (EN CONSTRUCCION)"><center><img border="0" src="images/stats_target_type.jpg" alt="NO IMAGEN"></img></center></a></td>
-							<td class = "morestats"><a href="javascript:nueva(\'stats_issue_type.php\')" title="ESTADISTICA POR TIPO DE INCIDENCIA"><center><img border="0" src="images/stats_issue_type.jpg" alt="NO IMAGEN"></img></center></a></td>
-							<td class = "morestats"><a href="" title="ESTADISTICA POR TIEMPO (EN CONSTRUCCION)"><center><img border="0" src="images/stats_time.jpg" alt="NO IMAGEN"></img></center></a></td>
+							<!-- <td class = "morestats"><a href="" title="ESTADISTICA POR XXXX (EN CONSTRUCCION)"><center><img border="0" src="images/stats_target_type.jpg" alt="NO IMAGEN"></img></center></a></td> -->
+							<td class = "morestats"><a href="javascript:nueva(\'stats_category_type.php\')" title="ESTADISTICA POR TIPO DE CATEGORIA"><center><img border="0" src="images/stats_target_type.jpg" alt="NO IMAGEN"></img></center></a></td>
+							<td class = "morestats"><a href="javascript:nueva(\'stats_product_type.php\')" title="ESTADISTICA POR TIPO DE PRODUCTO"><center><img border="0" src="images/stats_issue_type.jpg" alt="NO IMAGEN"></img></center></a></td>
+							<!-- <td class = "morestats"><a href="" title="ESTADISTICA POR TIEMPO (EN CONSTRUCCION)"><center><img border="0" src="images/stats_time.jpg" alt="NO IMAGEN"></img></center></a></td> -->
 							<td class = "morestats"><a href="javascript:nueva(\'stats_user_open.php\')" title="ESTADISTICA POR USUARIO QUE ABRE LA INCIDENCIA"><center><img border="0" src="images/stats_cp_open.jpg" alt="NO IMAGEN"></img></center></a></td>
 							<td class = "morestats"><a href="javascript:nueva(\'stats_user_close.php\')" title="ESTADISTICA POR USUARIO QUE RESUELVE LA INCIDENCIA"><center><img border="0" src="images/stats_cp_close.jpg" alt="NO IMAGEN"></img></center></a></td>
 						</tr>

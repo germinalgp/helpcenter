@@ -5,7 +5,7 @@ class maxChart {
    var $title;        // The title of the chart
    var $width = 300;  // The chart box width 
    var $height = 200; // The chart box height
-   var $metaSpaceHorizontal = 60; // Total space needed for chart title + bar title + bar value
+   var $metaSpaceHorizontal = 70; // Total space needed for chart title + bar title + bar value
    var $metaSpaceVertical = 60; // Total space needed for chart title + bar title + bar value
    var $variousColors = false;
    
