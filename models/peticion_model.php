@@ -141,6 +141,7 @@ class peticion_model{
 				// Actualizar la tabla "peticiones" con los datos de la peticion
 				$sql_insert = "INSERT INTO peticiones (user_open, telephone, email, issue_type, category_type, product_type, fecha_compra, id_anterior, n_serie, state, block, date, competencia)
 							 values('".$_SESSION['usuario']."','".$_SESSION['telephone']."','".$_SESSION['email']."', '".$combo_issue_type."','".$combo_category_type."','".$combo_product_type."','".$post_fecha_compra."','".$post_id_anterior."','".$post_n_serie."','0','0', '".$fecha_peticion2."','".$row_competencia[0]."')";
+				
 				$this->db->query($sql_insert);
 				
 				$sql_select_last_issue = "SELECT MAX(id) FROM peticiones";
@@ -150,6 +151,7 @@ class peticion_model{
 				// Actualizar la tabla "comentarios" con los datos de la peticion
 				$sql_insert2 = "INSERT INTO comentarios (id_issue, author, comments, date) values ('".$row[0]."','".$_SESSION['usuario']."','".$post_comentario."','".$fecha_peticion2."')";
 				$this->db->query($sql_insert2);
+				
 				return $this->error; 
 				
 				
