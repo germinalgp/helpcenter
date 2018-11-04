@@ -83,13 +83,18 @@
 	 * albanx@gmail.com
 	 * www.albanx.com
 	 */
+	 
+	 if (strpos($_SERVER['PHP_SELF'],'controller') != false){
+				$ruta = '../';
+	 }
+	 
 	$id = $_GET['ID'];
 	error_reporting(E_ALL ^ E_NOTICE);//remove notice for json invalidation
 	$sql = "SELECT date_format(DATE, '%Y-%m-%d %H:%i:%s' ) as DATE  FROM peticiones WHERE ID = ".$id;
 	$resultado=mysqli_fetch_array(mysqli_query($connection, $sql));
 	$fecha_peticion = date_parse($resultado[0]);
 
-	$uploadPath	= "smb/incidencias/".$fecha_peticion["year"]."/".str_pad($fecha_peticion["month"], 2, "0", STR_PAD_LEFT)."/".str_pad($fecha_peticion["day"], 2, "0", STR_PAD_LEFT)."/".$id."/";
+	$uploadPath	= $ruta."smb/incidencias/".$fecha_peticion["year"]."/".str_pad($fecha_peticion["month"], 2, "0", STR_PAD_LEFT)."/".str_pad($fecha_peticion["day"], 2, "0", STR_PAD_LEFT)."/".$id."/";
 	$fileName	= sanear_string(urldecode($_REQUEST['ax-file-name']));
 	$currByte	= $_REQUEST['ax-start-byte'];
 	$maxFileSize= $_REQUEST['ax-maxFileSize'];

@@ -309,7 +309,7 @@
 				
 				$fecha_peticion = date_parse($row[10]);
 				
-				$uploadPath	= "smb/incidencias/".$fecha_peticion["year"]."/".str_pad($fecha_peticion["month"], 2, "0", STR_PAD_LEFT)."/".str_pad($fecha_peticion["day"], 2, "0", STR_PAD_LEFT)."/".$_POST['ID']."/";
+				$uploadPath	= $ruta."smb/incidencias/".$fecha_peticion["year"]."/".str_pad($fecha_peticion["month"], 2, "0", STR_PAD_LEFT)."/".str_pad($fecha_peticion["day"], 2, "0", STR_PAD_LEFT)."/".$_POST['ID']."/";
 				
 				$ficheros = getFileList($uploadPath);
 				
@@ -439,7 +439,7 @@
 							*Pueden ser cargardos simult&aacute;neamente varios ficheros (Tama&ntilde;o m&aacute;ximo por fichero 8Mb)
 				<script type="text/javascript">
 				$(\'#demo1\').ajaxupload({
-					url:\'upload.php?ID='.$_POST['ID'].'\',
+					url:\''.$ruta.'upload.php?ID='.$_POST['ID'].'\',
 					finish: function(arrFiles){ $("#openform").submit();},
 					maxFileSize:\'8M\'
 				});

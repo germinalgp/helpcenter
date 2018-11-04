@@ -1,0 +1,7 @@
+BASE DE DATOS CAMBIADA:
+
+Tabla users
+-----------
+
+Int a tinyint
+Campo nuevo active
