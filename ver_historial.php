@@ -3,6 +3,7 @@
 	* PHP para visualizar el historial de una determinada incidencia.
 	* Opcion accesible para ciertos usuarios
 	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
 	*/
 	
 	require('conexion.php');
@@ -42,6 +43,12 @@
 									break;
 								case 6 : 
 									echo '<legend><b>['.$datos["DATE"].']</b> '.$datos["AUTHOR"].' ha realizado: </legend>CAMBIO COMPETENCIA: TECNICA';	
+									break;
+								case 25 : 
+									echo '<legend><b>['.$datos["DATE"].']</b> '.$datos["AUTHOR"].' ha realizado: </legend>DESHABILITAR ESPECIAL SEGUIMIENTO';	
+									break;
+								case 26 : 
+									echo '<legend><b>['.$datos["DATE"].']</b> '.$datos["AUTHOR"].' ha realizado: </legend>HABILITAR ESPECIAL SEGUIMIENTO';	
 									break;
 
 						}

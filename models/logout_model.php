@@ -1,4 +1,10 @@
 <?php
+	/**
+	* En nuestro MVC es el modelo que representa la funcionalidad de realizar el logout de la aplicacion
+	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
+	*/
+
 require_once("../db/db.php");
 class logout_model{
     private $db;

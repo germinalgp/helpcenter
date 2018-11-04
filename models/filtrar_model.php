@@ -1,4 +1,10 @@
 <?php
+	/**
+	* En nuestro MVC es el modelo que representa la funcionalidad de filtrar en las pasarelas de incidencias en funcion del TIER
+	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
+	*/
+	
 require_once("../db/db.php");
 class filtrar_model{
     private $db;

@@ -3,8 +3,9 @@
 	* PHP para realizar la peticion o creacion de una incidencia
 	* Actualmente solo accesibles para level 9
 	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
 	*/
-	require('conexion.php');					// Incluimos "conexion.php" que contiene los datos de la conexion a la base de datos
+	require('conexion.php');// Incluimos "conexion.php" que contiene los datos de la conexion a la base de datos
 	include ('menu.php');
 
 

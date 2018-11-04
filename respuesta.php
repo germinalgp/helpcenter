@@ -3,6 +3,7 @@
 	/**
 	* PHP para visualizar la respuesta a una incidencia en caso de nivel 9 y para gestionar la misma en caso de nivel administracion
 	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
 	*/
 	require('conexion.php'); //Incluimos el conexion.php que contiene los datos de la conexion a la base de datos
 	include ('menu.php');
@@ -44,23 +45,25 @@
 
 
 	if ($_SESSION['level'] == 1 || $_SESSION['level'] == 2 || $_SESSION['level'] == 3 || $_SESSION['level'] == 4 || $_SESSION['level'] == 9) {
-
+		if (strpos($_SERVER['PHP_SELF'],'controller') != false){
+					$ruta = '../';
+				}
+		
 		echo '<html>
 			<head>
 					<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 					<title>INCIDENCIAS</title>
-					<script type="text/javascript" language="javascript" src="js/jquery/jquery.min.js"></script>
-					<script type="text/javascript" language="javascript" src="js/jquery/plugins/ax-multiuploader/ajaxupload.js"></script>
-					<script src="js/ckeditor/ckeditor.js"></script>
+					<script type="text/javascript" language="javascript" src="'.$ruta.'js/jquery/jquery.min.js"></script>
+					<script type="text/javascript" language="javascript" src="'.$ruta.'js/jquery/plugins/ax-multiuploader/ajaxupload.js"></script>
+					<script src="'.$ruta.'js/ckeditor/ckeditor.js"></script>
 					<script>
 						function agregar(formulario){
 						  str = \'<p style="text-align:justify">\' + formulario.coment_predefinido.value + \'</p>\';
 							CKEDITOR.instances[\'ck_comentario\'].insertHtml(str);
 						}
 					</script>
-					<link href="styles.css" rel="stylesheet" type="text/css" />
-					<link href="../styles.css" rel="stylesheet" type="text/css" /> 	
-					<link rel="stylesheet" href="style/ax-multiuploader/style.css" type="text/css" media="all" />
+					<link href="'.$ruta.'styles.css" rel="stylesheet" type="text/css" />
+					<link rel="stylesheet" href="'.$ruta.'style/ax-multiuploader/style.css" type="text/css" media="all" />
 					
 			 </head>
 			 <body style="font: 13px/20px sans-serif;" link="#0000ff" vlink="#0000ff">

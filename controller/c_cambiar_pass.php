@@ -1,4 +1,9 @@
 <?php
+	/**
+	* En nuestro MVC es el controlador que llama al modelo cambiar_pass
+	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
+	*/
 date_default_timezone_set('Europe/Madrid');
 //Llamada al modelo
 require_once("../models/cambiar_pass_model.php");

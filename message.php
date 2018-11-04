@@ -2,6 +2,7 @@
 	/**
 	* PHP mostrar los mensajes de error o informacion que pueden darse en las diferentes opciones de la aplicacion
 	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
 	*/
 	echo '<html>
 		<head>

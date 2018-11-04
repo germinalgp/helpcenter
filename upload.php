@@ -3,6 +3,7 @@
 	* PHP que posibilita la subida de archivos a las incidencias para una gestion mas eficiente
 	* Solo para usuarios con level administrador. Los archivos son para gestion interna, no pueden verlos los niveles 9.
 	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
 	*/
 	require('conexion.php'); 
 

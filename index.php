@@ -4,6 +4,7 @@
 	* Opcion accesible para todos los usuarios y cuando se ha realizado el login mostraria la pasarela con todas las incidencias que podemos
 	* visualizar en funcion de pertenencias asi como las opciones del menu a las que podamos acceder por level.
 	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
 	*/
 	
 	require('conexion.php'); //Incluimos el conexion.php que contiene los datos de la conexion a la base de datos
@@ -409,11 +410,9 @@
 									else {
 										
 										echo '<input name="Submit" type="submit" id="submit" tabindex="13" value="Bloqueado" disabled = "disabled"></input>';
-										if (strpos($_SERVER['PHP_SELF'],'controller') != false){
-												echo '<a href='.$ruta.'c_unlock.php?ID='.$datos["ID"].'><img border="0" src="'.$ruta.'images/candado.gif" width="20" height="20" alt="NO IMAGEN"></img></a>';
-										}else{
-												echo '<a href='.$ruta.'controller/c_unlock.php?ID='.$datos["ID"].'><img border="0" src="'.$ruta.'images/candado.gif" width="20" height="20" alt="NO IMAGEN"></img></a>';
-										}
+										
+										echo '<a href='.$ruta.'controller/c_unlock.php?ID='.$datos["ID"].'><img border="0" src="'.$ruta.'images/candado.gif" width="20" height="20" alt="NO IMAGEN"></img></a>';
+										
 											
 									}
 										

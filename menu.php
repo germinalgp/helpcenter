@@ -2,7 +2,9 @@
 	/**
 	* PHP que muestra el menu de usuario en funcion del level, pudiendo tener mas o menos opciones
 	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
 	*/
+	
 	/**
 	* Funcion para mostrar el menu de usuarios administradores (los que no tienen level 9)
 	* @author Germinal GARRIDO PUYANA

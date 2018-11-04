@@ -1,4 +1,10 @@
 <?php
+	/**
+	* En nuestro MVC es el modelo que representa la funcionalidad de activar el especial seguimiento de una incidencia
+	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
+	*/
+
 require_once("../db/db.php");
 class tracing_model{
     private $db;

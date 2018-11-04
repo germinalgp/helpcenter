@@ -1,4 +1,10 @@
 <?php
+	/**
+	* En nuestro MVC es el modelo que representa la funcionalidad de desbloquear una incidencia que está siendo tratada por alguien
+	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
+	*/
+	
 require_once("../db/db.php");
 class unlock_model{
     private $db;

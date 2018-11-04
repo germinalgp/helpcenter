@@ -1,4 +1,10 @@
 <?php
+	/**
+	* En nuestro MVC es el modelo que representa la funcionalidad de gestionar el autoregistro de usuarios
+	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
+	*/
+
 require_once("../db/db.php");
 class registrar_model{
     private $db;

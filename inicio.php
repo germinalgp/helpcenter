@@ -1,4 +1,9 @@
 <?php
+	/**
+	* PHP que representa la ventana del login para abrir mediante tinybox
+	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
+	*/
 
 if ( $_GET['rutatiny'] == "1" ){
 	$ruta = '../';

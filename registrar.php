@@ -2,6 +2,7 @@
 	/**
 	* PHP para realizar el registro de un usuario para que haga uso de la aplicacion
 	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
 	*/
 	
 	if ( $_GET['rutatiny'] == "1" ){

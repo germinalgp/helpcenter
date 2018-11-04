@@ -1,4 +1,10 @@
 <?php
+	/**
+	* En nuestro MVC es el modelo que representa la funcionalidad de buscar posibles intrusiones (4 tipos)
+	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
+	*/
+
 require_once("../db/db.php");
 class busqueda_intrusiones_model{
     private $db;

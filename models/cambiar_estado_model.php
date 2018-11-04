@@ -1,4 +1,9 @@
 <?php
+	/**
+	* En nuestro MVC es el modelo que representa la funcionalidad de cambiar de estado a una incidencia
+	* @version v1.1(0218)
+	*/
+	
 require_once("../db/db.php");
 class cambiar_estado_model{
     private $db;

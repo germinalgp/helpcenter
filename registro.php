@@ -2,7 +2,7 @@
 	/**
 	* PHP para realizar el registro de un usuario por parte de un administrador
 	* @author Germinal GARRIDO PUYANA
-	* @return boolean true si es correcta la verificacion y false en caso contrario 
+	* @version v1.1(0218)
 	*/
 	require('conexion.php'); //Incluimos el conexion.php que contiene los datos de la conexion a la base de datos
 	include('menu.php');

@@ -2,6 +2,7 @@
 	/**
 	* PHP para realizar el logout del aplicativo. Hay que liberar las variables de sesion
 	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
 	*/	
 	require ('conexion.php'); //Incluimos el conexion.php que contiene los datos de la conexion a la base de datos
 	if ($_SESSION['level'] == 1 || $_SESSION['level'] == 2 || $_SESSION['level'] == 3 || $_SESSION['level'] == 4 || $_SESSION['level'] == 9) {

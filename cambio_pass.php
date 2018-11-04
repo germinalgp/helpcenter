@@ -5,6 +5,7 @@
 	* 3 veces la password incorrecta y por lo tanto hay que resetearlo.
 	* Opcion accesible para ciertos usuarios
 	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
 	*/
 	require('conexion.php'); //Incluimos el conexion.php que contiene los datos de la conexion a la base de datos
 	include('menu.php');

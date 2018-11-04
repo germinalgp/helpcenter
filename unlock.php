@@ -3,6 +3,7 @@
 	* PHP para desbloquear una incidencia que estaba previamente bloqueada. Bloqueamos las incidencias para que un administrador tenga 
 	* conocimiento que ya hay otro compañero dentro de la misma
 	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
 	*/
 	require('conexion.php'); //Incluimos el conexion.php que contiene los datos de la conexion a la base de datos
 

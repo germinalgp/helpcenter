@@ -2,6 +2,7 @@
 	/**
 	* PHP para visualizar estadisticas por los usuarios que abren la incidencia
 	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
 	*/
 	require('conexion.php'); //Incluimos el conexion.php que contiene los datos de la conexion a la base de datos
 	require_once('maxChart.class.php');

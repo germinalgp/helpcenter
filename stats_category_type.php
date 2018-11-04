@@ -2,6 +2,7 @@
 	/**
 	* PHP para visualizar estadisticas por tipo de incidencia
 	* @author Germinal GARRIDO PUYANA
+	* @version v1.1(0218)
 	*/
 	require('conexion.php'); //Incluimos el conexion.php que contiene los datos de la conexion a la base de datos
 	require_once('maxChart.class.php');
@@ -47,7 +48,7 @@
 					<br/><b>Departamento:</b> '.$user["departamento"].'
 				</td>
 				<td>
-				<form id="formShort" method="post" action="stats_issue_type.php">
+				<form id="formShort" method="post" action="stats_category_type.php">
 					<fieldset>
 						<legend>Selecci&#243;n de a&#241;o: </legend>
 						<label id="label2" for="anio">
